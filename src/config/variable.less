@@ -1,0 +1,26 @@
+/* stylelint-disable property-no-unknown */
+@import '~antd/es/style/themes/default.less';
+
+@warn-color-red: #ff4b4b;
+@warn-color-orange: #ff8239;
+@warn-color-yellow: #ffba14;
+@warn-color-blue: #3390f5;
+@warn-color-gray: #a0a0a0;
+@warn-color-hazard: #b6b6b6;
+@success-color: #52c41a;
+@online-color: #2ac785;
+@offline-color: @warn-color-red;
+@dark-text-color: #e6f7ff;
+// CSS Module 有一个:export关键字，它在功能上等同于 ES6 的关键字export，即导出一个 js 对象
+:export {
+  red: @warn-color-red;
+  orange: @warn-color-orange;
+  yellow: @warn-color-yellow;
+  blue: @warn-color-blue;
+  gray: @warn-color-gray;
+  hazard: @warn-color-hazard;
+  primaryColor: @primary-color;
+  success: @success-color;
+  online: @online-color;
+  offline: @offline-color;
+}

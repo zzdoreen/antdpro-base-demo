@@ -1,0 +1,42 @@
+syntax = "proto3";
+package instruct;
+option go_package=".;instruct";
+
+/*数据封装规则 4字节头部和4字节adler32采用大端序
+    4字节头部 + 1字节包名长度 + 包名 + protobuf数据 + 4字节adler32
+    4字节头部为整个包长度, 即: 9+包名长度+protobuf数据长度
+    4字节adler32校验的是：1字节包名长度 + 包名 + protobuf数据
+*/
+
+//认证请求，客户端连接服务器后，立即发送
+message Authentication {
+    string username = 1;//用户名
+    string password = 2;//密码
+}
+
+//认证结果
+message Consequence {
+    bool verdict = 1; //true 成功 false 失败
+    string message = 2; //提示
+}
+
+//客户端主动向服务器发送，30秒钟一次。服务器收到后立即原样回复客户端。
+message WsHeartbeat {
+}
+
+//通知告警
+message WarnNote {
+    string msg = 1; // 告警内容
+}
+
+//服务器运行情况
+//当服务器异常 / 服务器恢复 时会通知前端
+message ServerStatus {
+    bool status = 1; //true 正常 false 异常
+    string name = 2; //服务器名称
+}
+
+// 通知刷新（包括 最新记录、事件统计、走马灯展示最新地震（列表查询第一个））
+message QuakeUpdate {
+    int32 warnType = 1; //事件类型, 1-正式预警 2-地震测试 3-地震演习 4-预警取消 5-地震速报  6-地震速报（测试）
+}
