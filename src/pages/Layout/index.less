@@ -1,4 +1,4 @@
-.conatiner {
+.layout-conatiner {
     display: grid;
     height: 680px;
     // grid-template-columns: 70% 30%;
@@ -20,12 +20,14 @@
             // grid-column-start: 1; // 横跨的列数
             // grid-column-end: 3;
 
-            // 合并写法
+            // 合并写法 ( 设置了 grid-template-areas，合并写法不生效
             // grid-column: 1 / 3;
 
             // grid-row-start: 1; // 纵向横跨
             // grid-row-end: 3;
 
+            // ...
+            // 合并写法 ( 设置了 grid-template-areas，合并写法不生效
             // grid-area: 1 / 1 / 3 / 3
 
             grid-area: a; // 配合 grid-template-areas

@@ -25,6 +25,12 @@
         icon: 'bulb',
         path: '/layout',
         component: './Layout'
+      },
+      {
+        name: 'preview',
+        icon: 'copy',
+        path: '/preview',
+        component: './Preview'
       }
     ]
   },

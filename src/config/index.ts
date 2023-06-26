@@ -164,9 +164,9 @@ export function clearCachedLocalStorageValues(forceClear = false) {
     if (!forceClear) {
         //  判断版本是否兼容
         const key = 'heron_version'
-        if (getLocalStorage(key) !== APP_VERSION) {
-            setLocalStorage(key, APP_VERSION)
-        } else return
+        // if (getLocalStorage(key) !== APP_VERSION) {
+        //     setLocalStorage(key, APP_VERSION)
+        // } else return
     }
     for (let k in localStorageValues) {
         setLocalStorage(k, localStorageValues[k])

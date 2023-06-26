@@ -2,7 +2,7 @@ import './index.less'
 
 export default function Layout() {
     return <div>
-        <div className='conatiner'>
+        <div className='layout-conatiner'>
             <div>1</div>
             <div>2</div>
             <div>3</div>
