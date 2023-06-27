@@ -31,11 +31,10 @@ export function useProTable<T>(config: { columns: ProColumns<T>[], request?: Pro
             }, column)
         )
     }, [columns])
+
     const actionRef = useRef<ActionType>()
 
-    const reload = useCallback(
-        (resetPageIndex?: boolean) => actionRef.current?.reload(resetPageIndex)
-        , [actionRef])
+    const reload = useCallback((resetPageIndex?: boolean) => actionRef.current?.reload(resetPageIndex), [actionRef])
 
     const [modal, setModal] = useState<FormModalState>({
         visible: false
@@ -193,5 +192,5 @@ export default function <T>(props: ProTableProps<T, AnyForm> & ExtroProTableProp
             </Row> as unknown as React.ReactNode[],
         }
     } as ProTableProps<T, AnyForm>, restProps)
-    return <ProTable {...newProps}></ProTable>
+    return <ProTable {...newProps} />
 }

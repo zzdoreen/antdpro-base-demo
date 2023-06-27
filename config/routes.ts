@@ -31,6 +31,12 @@
         icon: 'copy',
         path: '/preview',
         component: './Preview'
+      },
+      {
+        name: 'video',
+        icon: 'eye',
+        path: '/video',
+        component: './Video'
       }
     ]
   },

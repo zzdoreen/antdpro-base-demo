@@ -4,4 +4,5 @@ export default {
   'menu.websocket': 'websocket',
   'menu.layout': '布局',
   'menu.preview': '预览',
+  'menu.video': '视频',
 };

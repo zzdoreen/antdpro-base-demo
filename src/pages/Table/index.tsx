@@ -4,10 +4,11 @@ import { addPlanListService, delPlanService, getPlanListService } from "@/servic
 import type { PlanEntity } from "@/services/entities";
 import { ModalConfirm, UnixTimeRender } from "@/utils/tools";
 import type { ProColumns } from "@ant-design/pro-components";
-import { Button, message } from "antd";
+import { Button, Tabs, message } from "antd";
 import moment from "moment";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import style from './index.less'
+import ImportProcess from "@/components/Common/ImportComponent";
 
 export default function Table() {
     const columns = useMemo(() => [
@@ -275,6 +276,7 @@ export default function Table() {
         })
     }, [proFormModalProps.columns])
 
+
     return <>
         <ProTable
             {...proTableProps}
@@ -282,8 +284,14 @@ export default function Table() {
             addText="新建"
             // addButtonProps={{ disabled: !editable() }}
             // params={{ projectNumber }
+            // eslint-disable-next-line react/jsx-key
+            extraActions={<ImportProcess name='导入' service={() => getPlanListService({})} reload={reload}
+                template='/aa.xlsx'
+                tootip="仅支持xlsx格式文件,文件小于30MB" accept=".xlsx"
+            >
+                <Button type="primary" >导入</Button>
+            </ImportProcess>}
             className={style._table}
         />
-        <ProFormModal {...proFormModalProps} columns={formColumns} onSubmit={onSubmit as any} />
-    </>
+        <ProFormModal {...proFormModalProps} columns={formColumns} onSubmit={onSubmit as any} /></>
 }

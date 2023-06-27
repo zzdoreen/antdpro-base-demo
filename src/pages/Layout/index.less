@@ -3,6 +3,18 @@
     height: 680px;
     // grid-template-columns: 70% 30%;
     // grid-template-rows: 70% 30%;
+    /* 
+
+    grid-template-columns: repeat(3, 100px); // 3列， 每列100px
+    grid-template-columns: repeat(auto-fit, 100px); // 自适应列数， 每列100px
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); // 自适应列数， 每列最小100px
+    grid-template-columns: repeat(3, 1fr); // 3列，每列等宽
+    grid-template-columns: 100px 1fr 2fr; // 第一列100px，剩余空间 1 : 2 分配给第二第三列
+    grid-template-columns: 100px auto; // 第一列100px，第二列自适应剩余空间
+    grid-template-columns: 1fr 1fr minmax(200px, 2fr); // 前两列 1 等宽 ，最后一列最小 200px ，正常情况下是前一列的 2 倍
+    grid-template-columns: [c1] 100px [c2] 100px [c3] auto [c4]; // [c1] 为网格线名
+    
+    */
     grid-column-gap: 10px; // 列间距
     grid-row-gap: 10px; // 间距    两个值都相等 => grid-gap: 10px
     grid-template-areas:
@@ -17,8 +29,8 @@
         text-align: center;
 
         &:nth-of-type(1) {
-            // grid-column-start: 1; // 横跨的列数
-            // grid-column-end: 3;
+            // grid-column-start: 1; // 横跨的列数 左边框所在的垂直网格线
+            // grid-column-end: 3;   // 右边框所在的垂直网格线
 
             // 合并写法 ( 设置了 grid-template-areas，合并写法不生效
             // grid-column: 1 / 3;
@@ -36,6 +48,107 @@
         &:nth-of-type(3) {
             background-color: rebeccapurple;
             grid-area: g;
+        }
+    }
+}
+
+.page-layout {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas: 'a a a'
+        'b c d'
+        'e e e';
+
+    grid-template-columns: 200px 1fr 200px;
+
+    div {
+        background-color: black;
+        color: white;
+        height: 600px;
+
+        &:nth-of-type(1) {
+            grid-area: a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        &:nth-last-of-type(3) {
+            background-color: rebeccapurple;
+        }
+
+        &:nth-last-of-type(1) {
+            grid-area: e;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    }
+}
+
+.waterfall-layout {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 1500px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: auto;
+
+    div {
+        background-color: black;
+        height: 120px;
+        width: 25%;
+        border: 2px solid white;
+
+        &:nth-of-type(2n) {
+            height: 150px;
+        }
+
+        &:nth-of-type(2n+1) {
+            height: 300px;
+        }
+
+        &:nth-of-type(1) {
+            height: 350px;
+        }
+
+        &:nth-of-type(3) {
+            height: 400px;
+        }
+
+        &:nth-of-type(8) {
+            height: 250px;
+        }
+
+        &:nth-of-type(13) {
+            height: 170px;
+        }
+
+    }
+}
+
+.flex-layout {
+    width: 500px;
+    height: 700px;
+    border: 1px dashed salmon;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-rows: 1fr 1fr 2fr;
+
+    div {
+        background-color: #001529;
+
+        &:has(.imgs) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .imgs {
+            background-color: black;
+            height: 200px;
+            width: 20%;
         }
     }
 }
