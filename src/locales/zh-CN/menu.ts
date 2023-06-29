@@ -5,4 +5,5 @@ export default {
   'menu.layout': '布局',
   'menu.preview': '预览',
   'menu.video': '视频',
+  'menu.map': '地图',
 };

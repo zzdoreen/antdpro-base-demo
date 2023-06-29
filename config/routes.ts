@@ -37,6 +37,12 @@
         icon: 'eye',
         path: '/video',
         component: './Video'
+      },
+      {
+        name: 'map',
+        icon: 'fire',
+        path: '/map',
+        component: './Map'
       }
     ]
   },

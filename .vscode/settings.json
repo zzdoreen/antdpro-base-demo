@@ -10,5 +10,8 @@
   },
   "[less]": {
     "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

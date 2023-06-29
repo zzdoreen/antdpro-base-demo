@@ -9,6 +9,7 @@ import defaultSettings from '../config/defaultSettings';
 import type { RequestInterceptor, ResponseError, ResponseInterceptor } from 'umi-request';
 import { message, notification } from 'antd';
 import { BASE_API_URL, getLogout } from './config';
+import { config } from '@/pages/Map/components/configuration'
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -43,6 +44,7 @@ export async function getInitialState(): Promise<{
       // fetchUserInfo,
       // currentUser,
       settings: defaultSettings,
+      ...config
     };
   }
   return {

@@ -1,0 +1,107 @@
+@dark-text-color: #CEE5F2;
+@dark-text-active-color: #c6e5ff;
+@dark-title-color: #c4e3ff;
+@second-color: #91b0cc;
+
+.legend {
+    :global {
+        .legend-title {
+            text-align: center;
+        }
+
+        .ant-descriptions-header {
+            margin-bottom: 12px;
+
+            .ant-descriptions-title {
+                font-weight: normal;
+            }
+        }
+
+        .ant-descriptions-row>th,
+        .ant-descriptions-row>td {
+            padding-bottom: 0;
+        }
+
+        .ant-descriptions-item-container {
+            align-items: center;
+
+            .legend-block {
+                display: inline-block;
+                width: 30px;
+            }
+        }
+
+        .ant-descriptions {
+            display: inline-block;
+
+            .ant-descriptions-view,
+            .ant-descriptions-view table {
+                display: inline-block;
+            }
+
+            .ant-descriptions-item {
+                padding-bottom: 0;
+            }
+
+            .ant-descriptions-item-container {
+                align-items: center;
+                padding: 1px 0;
+            }
+        }
+
+        .static-legend {
+            padding-top: 10px;
+            text-align: center;
+            background: #071532;
+            border: 2px solid #2957a4;
+            border-radius: 4px;
+
+            .heatmap {
+                .legend-title {
+                    font-size: 14px;
+                    color: #91B0CC;
+                    font-weight: 400;
+                }
+
+                .ant-descriptions-item-content {
+                    font-size: 12px;
+                    color: #91B0CC;
+                    font-weight: 400;
+                }
+            }
+
+            .legend-title {
+                color: @dark-text-active-color;
+                font-size: 20px;
+            }
+
+            .heatmap-title {
+                font-size: 18px;
+            }
+
+            .ant-descriptions-item-content {
+                color: @dark-text-color;
+                font-size: 14px;
+            }
+
+            .intensity-legend,
+            .ant-descriptions-item {
+                background-color: transparent;
+            }
+        }
+
+        .full-screen-title,
+        .intensity-title {
+            color: #d8e8ff;
+        }
+
+        .intensity-title {
+            flex-wrap: nowrap;
+            align-items: baseline;
+            padding: 16px 27px;
+            font-weight: bold;
+            font-size: 32px;
+            background-color: rgba(115, 181, 255, 0.25);
+        }
+    }
+}
