@@ -8,8 +8,6 @@ import { HeatMapLegend, LegendClassName } from "./legend";
 export function useDetailRender({ map, }: any) {
     const { mapState, marginsRef, setMapState } = useModel('bmap', ({ mapState, marginsRef, setMapState }) => ({ setMapState, mapState, marginsRef }))
 
-    // useHeatMapLib()
-
     // 热力图
     useDebounceEffect(() => {
         // info.heatmap会先清空再存值 需要防抖
@@ -51,7 +49,6 @@ export const heatMapGenerator = (view: MapVGL.View, data: Record<'lng' | 'lat' |
         geometry: {
             type: 'Point',
             coordinates: [lng, lat],
-
         },
         properties: {
             count

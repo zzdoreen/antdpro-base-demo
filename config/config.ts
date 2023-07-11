@@ -7,10 +7,10 @@ import proxy from './proxy';
 import routes from './routes';
 
 const { REACT_APP_ENV } = process.env;
-
+// https://v3.umijs.org/zh-CN/config
 export default defineConfig({
   history: { type: 'hash' },
-  hash: true,
+  publicPath: './',
   antd: {},
   dva: {
     hmr: true,
