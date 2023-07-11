@@ -37,8 +37,8 @@ export default defineConfig({
   },
   headScripts: [
     '//api.map.baidu.com/api?type=webgl&v=1.0&ak=2Cj12hK8X1jz5STDaOUrGShTmyaw5aUB',
-    'http://mapopen.bj.bcebos.com/github/BMapGLLib/DrawingManager/src/DrawingManager.min.js',
-    'http://mapopen.bj.bcebos.com/github/BMapGLLib/DistanceTool/src/DistanceTool.min.js',
+    '//mapopen.bj.bcebos.com/github/BMapGLLib/DrawingManager/src/DrawingManager.min.js',
+    '//mapopen.bj.bcebos.com/github/BMapGLLib/DistanceTool/src/DistanceTool.min.js',
     '//unpkg.com/mapvgl/dist/mapvgl.min.js'
   ],
   // umi routes: https://umijs.org/docs/routing

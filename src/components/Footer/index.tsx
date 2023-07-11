@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: '-',
-    defaultMessage: '成都高新减灾研究所',
+    defaultMessage: '民风淳朴米花町',
   });
 
   const currentYear = new Date().getFullYear();
