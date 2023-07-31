@@ -36,7 +36,7 @@ export default function MapConponent() {
                 // fillOpacity: 'transparent',
                 // fillColor: 'transparent',
                 strokeWeight: 3.5,
-                strokeColor
+                // strokeColor
             })
             polylines.push(polyline)
             pts = pts.concat(points)
@@ -68,9 +68,11 @@ export default function MapConponent() {
 
         const polygons = polylines.map(polyline => {
             const polygon = new BMapGL.Polygon(polyline.getPath(), {
-                strokeColor: '#50b5ff',
-                fillColor: 'rgba(60,151,255,0.15)',
+                // strokeColor: '#50b5ff',
+                // fillColor: 'rgba(60,151,255,0.15)',
                 strokeWeight: 4,
+                fillOpacity: 0,
+                strokeOpacity: 0
             })
             map.addOverlay(polygon)
             return polygon
