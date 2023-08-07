@@ -39,6 +39,12 @@
         component: './Video'
       },
       {
+        name: 'player',
+        icon: 'eye',
+        path: '/player',
+        component: './Player'
+      },
+      {
         name: 'map',
         icon: 'fire',
         path: '/map',
