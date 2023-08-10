@@ -5,7 +5,9 @@ import { useReactive } from "ahooks";
 export default function Player() {
     const points = useReactive<{ list: [number, number][], path: string }>({ list: [], path: '' })
     const [markerFlag, setMarkerFlag] = useState<boolean>(false)
-    const markerOverlay = useRef()
+    const markerOverlay = useRef<HTMLDivElement>(null)
+    const pathOverlayer = useRef<SVGPathElement>(null)
+    const svgOverlay = useRef<SVGElement>(null)
 
     const getVideoImg = () => {
         const video: HTMLVideoElement = document.getElementById('video') as HTMLVideoElement
@@ -26,28 +28,45 @@ export default function Player() {
         })
     }
 
-    const getPath = () => {
-        if (points.list.length < 1) return ''
-        return points.list.map((point, index) => {
+    const getPath = (p?: [number, number][]) => {
+        let pointList: [number, number][] = []
+        if (p) pointList = p
+        else pointList = points.list
+
+        if (pointList.length < 1) return ''
+        return pointList.map((point, index) => {
             if (!point) return ''
             if (index === 0) return `M ${point[0]} ${point[1]}`;
             if (index === 1) return `L ${point[0]} ${point[1]}`;
-            if (index === points.list.length - 1) return `${point[0]} ${point[1]} Z`;
+            if (index === pointList.length - 1) return `${point[0]} ${point[1]} Z`;
             return `${point[0]} ${point[1]}`
         }).join(',')
     }
 
-    const handleOverlayPoints = (e: { layerX: number; layerY: number; }) => {
+    const handleOverlayPoints = (e) => {
         points.list.push([e.layerX, e.layerY])
         points.path = getPath()
     }
+    const handleMouseMoveFn = (e) => { points.path = getPath([...points.list, [e.layerX, e.layerY]]) }
+
+    const handlePathOverlayPoints = (e) => {
+        points.list.push([e.offsetX, e.offsetY])
+        points.path = getPath()
+    }
+    const handleMouseOutFn = () => { points.path = getPath() }
 
     useEffect(() => {
         if (!markerOverlay.current) return
         markerOverlay.current?.addEventListener('click', handleOverlayPoints)
+        markerOverlay.current?.addEventListener('mousemove', handleMouseMoveFn)
+        pathOverlayer.current?.addEventListener('click', handlePathOverlayPoints)
+        svgOverlay.current?.addEventListener('mouseleave', handleMouseOutFn)
 
         return () => {
             markerOverlay.current?.removeEventListener('click', handleOverlayPoints)
+            markerOverlay.current?.removeEventListener('mousemove', handleMouseMoveFn)
+            pathOverlayer.current?.removeEventListener('click', handlePathOverlayPoints)
+            svgOverlay.current?.removeEventListener('mouseleave', handleMouseOutFn)
         }
     }, [])
 
@@ -60,24 +79,20 @@ export default function Player() {
             points.list = []; points.path = ''
         }}>提交</button>
         <br />
-        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="300">
-            <g>
-                <foreignObject x="0" y="0" width="500" height="300">
-                    <div ref={markerOverlay} className="video-marker-cover" style={{ width: '500px', height: '300px', display: markerFlag ? 'block' : 'none' }} />
-                    <video autoPlay muted src="/video/big_buck_bunny.mp4" width={500} height={300} id="video" controls />
-                </foreignObject>
-                <path fill="none" stroke="red" d={points.path} />
-            </g>
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" ref={svgOverlay}>
+            <foreignObject x="0" y="0" width="500" height="300">
+                <div ref={markerOverlay} className="video-marker-cover" style={{ width: '500px', height: '300px', display: markerFlag ? 'block' : 'none' }} />
+                <video autoPlay muted src="/video/big_buck_bunny.mp4" width={500} height={300} id="video" controls />
+            </foreignObject>
+            <path ref={pathOverlayer} fill="none" stroke="red" d={points.path} />
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="500" height="300">
-            <g>
-                <foreignObject x="0" y="0" width="500" height="300">
-                    <div>
-                        <img src="" width="500" height="300" id="testImg" alt="" />
-                    </div>
-                </foreignObject>
-                <path fill="none" stroke="red" d={points.path} />
-            </g>
+            <foreignObject x="0" y="0" width="500" height="300">
+                <div>
+                    <img src="" width="500" height="300" id="testImg" alt="" />
+                </div>
+            </foreignObject>
+            <path fill="none" stroke="red" d={points.path} />
         </svg>
     </div>
 }

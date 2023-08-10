@@ -13,7 +13,7 @@ export default function Video() {
     useEffect(() => {
         if (!videoPlayer_hls.current || !videoPlayer_flv.current) return
 
-        const flvVideo = videojs(videoPlayer_hls.current!, {
+        const hlsVideo = videojs(videoPlayer_hls.current!, {
             controls: true,
             muted: true,
             techOrder: ["html5", "flvjs"],
@@ -22,13 +22,12 @@ export default function Video() {
 
         })
 
-        const hlsVideo = videojs(videoPlayer_flv.current!, {
+        const flvVideo = videojs(videoPlayer_flv.current!, {
             controls: true,
             muted: true,
             // techOrder: ["html5", "flvjs"],
             preload: 'none',
             sources: [{ src: flv.url, type: "video/x-flv" }]
-
         })
 
         return () => {
@@ -38,8 +37,16 @@ export default function Video() {
     }, [])
     return <div className='video-container'>
         {/* @ts-ignore */}
-        <video ref={videoPlayer_flv} style={{ width: '500px', height: '500px' }} className="video-js vjs-default-skin vjs-big-play-centered" />
-        <video ref={videoPlayer_hls} style={{ width: '500px', height: '500px' }} className="video-js vjs-default-skin vjs-big-play-centered" />
+        <div>
+            <h1>flv</h1>
+            <video ref={videoPlayer_flv} style={{ width: '500px', height: '500px' }} className="video-js vjs-default-skin vjs-big-play-centered" />
+
+        </div>
+        <div>
+            <h1>hls</h1>
+            <video ref={videoPlayer_hls} style={{ width: '500px', height: '500px' }} className="video-js vjs-default-skin vjs-big-play-centered" />
+        </div>
+
     </div>
 }
 
