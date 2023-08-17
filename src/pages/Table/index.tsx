@@ -23,11 +23,16 @@ export default function Table() {
             title: '数字',
             dataIndex: 'age',
             valueType: 'digitRange',
+            formItemProps: {
+                addonAfter: '岁',
+                addonBefore: '+'
+            },
             fieldProps: {
                 // disabled: true,
                 precision: 2,
                 min: 0,
-                max: 120
+                max: 120,
+
             },
             search: {
                 transform: (v: [number, number]) => {

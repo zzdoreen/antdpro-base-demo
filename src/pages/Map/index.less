@@ -1,3 +1,9 @@
+@dark-text-active-color: #c6e5ff;
+@dark-text-color: #CEE5F2;
+@dark-title-color: #c4e3ff;
+@second-color: #91b0cc;
+
+
 .wrapper {
     position: relative;
     overflow: hidden;
@@ -14,6 +20,7 @@
         cursor: pointer;
 
         .reset,
+        .maptype,
         .full-screen,
         .exit-full {
             width: 50px;
@@ -22,8 +29,91 @@
             text-align: center;
             line-height: 50px;
             color: white;
+            font-size: 12px;
+        }
+    }
+
+    .boundarys {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: flex;
+        z-index: 5;
+    }
+
+    .disaster-tools {
+        position: absolute;
+        left: 10px;
+        display: grid;
+        grid-auto-flow: row;
+        z-index: 99;
+        top: 50px;
+        grid-gap: 10px;
+
+        .item {
+            width: 50px;
+            height: 50px;
+            background-color: #2763AD;
+            text-align: center;
+            line-height: 50px;
+            font-size: 12px;
+            cursor: pointer;
+            color: white;
         }
     }
 
     // }
+
+    .static-legend {
+        padding: 10px;
+        text-align: center;
+        background: #071532;
+        border: 2px solid #2957a4;
+        border-radius: 4px;
+
+        .legend-title {
+            color: @dark-text-active-color;
+            font-size: 20px;
+        }
+
+        .heatmap-title {
+            font-size: 18px;
+        }
+
+        .legend-block {
+            display: inline-block;
+            width: 30px;
+        }
+
+        .ant-descriptions-item-content {
+            color: @dark-text-color;
+            font-size: 14px;
+        }
+
+        .intensity-legend,
+        .ant-descriptions-item {
+            background-color: transparent;
+        }
+
+
+        .legend-defects {
+            display: inline-block;
+            width: 30px;
+            height: 1.5px;
+            vertical-align: middle;
+            background-color: #fff04d;
+        }
+
+        .legend-epicenter {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 3px 9px 3px;
+            background-color: #ff6609;
+            border: 1px solid #000;
+            border-radius: 50%;
+        }
+    }
+
+
 }

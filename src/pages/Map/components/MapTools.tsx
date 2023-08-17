@@ -40,6 +40,13 @@ export default function MapToolsComponent({ map }: { map: BMapGL.Map }) {
             <div onClick={() => setMapState(({ heatmap }) => ({ heatmap: !heatmap }))} className="heatmap reset" >人口热力</div>
         </Tooltip>
         {/* @ts-ignore */}
+        <Tooltip placement="left" title="切换地图类型" color={Colors.primaryColor} overlayInnerStyle={{ marginRight: -1 }} getPopupContainer={v => document.getElementsByClassName('maptype')[0]}>{/* arrow诡异的1px空隙 */}
+            <div onClick={() => {
+                const mapType = map?.getMapType() === 'B_NORMAL_MAP' as unknown as BMapGL.MapType ? BMAP_SATELLITE_MAP : BMAP_NORMAL_MAP
+                map.setMapType(mapType)
+            }} className="maptype" >类型</div>
+        </Tooltip>
+        {/* @ts-ignore */}
         <Tooltip placement="left" title="返回默认地图" color={Colors.primaryColor} overlayInnerStyle={{ marginRight: -1 }} getPopupContainer={v => document.getElementsByClassName('reset')[0]}>{/* arrow诡异的1px空隙 */}
             <div onClick={() => {
                 // if (useMapOptions.staticMode) {

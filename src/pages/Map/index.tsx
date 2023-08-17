@@ -7,6 +7,8 @@ import { useModel } from 'umi';
 import './index.less'
 import MapToolsComponent from './components/MapTools';
 import { useDetailRender } from './components/hooks';
+import MapBoundaryComponent from './components/MapBoundary';
+import DisasterTools from './components/DisasterTools';
 
 type MapCenterFunc = (margins?: number[]) => void
 
@@ -36,7 +38,7 @@ export default function MapConponent() {
                 // fillOpacity: 'transparent',
                 // fillColor: 'transparent',
                 strokeWeight: 3.5,
-                // strokeColor
+                strokeColor
             })
             polylines.push(polyline)
             pts = pts.concat(points)
@@ -68,11 +70,11 @@ export default function MapConponent() {
 
         const polygons = polylines.map(polyline => {
             const polygon = new BMapGL.Polygon(polyline.getPath(), {
-                // strokeColor: '#50b5ff',
-                // fillColor: 'rgba(60,151,255,0.15)',
+                strokeColor: '#50b5ff',
+                fillColor: 'rgba(60,151,255,0.15)',
                 strokeWeight: 4,
-                fillOpacity: 0,
-                strokeOpacity: 0
+                fillOpacity: 0.15,
+                strokeOpacity: 0.5,
             })
             map.addOverlay(polygon)
             return polygon
@@ -82,14 +84,15 @@ export default function MapConponent() {
             polygons.map(polygon => map.removeOverlay(polygon))
         }
 
-    }, [map, initialState?.serveArea?.polygon])
+    }, [map, initialState?.serveArea?.polygons])
 
     return <div className='wrapper'>
         <Map ref={(ref: { map: SetStateAction<BMapGL.Map | undefined> }) => setMap(ref?.map)}
-            // center={{ lng: 116.402544, lat: 39.928216 }}
             style={{ height: 850 }} enableScrollWheelZoom={true}
             mapStyleV2={{ styleJson }} >
+            <MapBoundaryComponent map={map!} />
             <MapToolsComponent map={map!} />
+            <DisasterTools map={map!} />
         </Map>
     </div>
 }
