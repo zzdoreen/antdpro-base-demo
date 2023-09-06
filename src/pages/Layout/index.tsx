@@ -1,9 +1,9 @@
-import { Button, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import './index.less'
 import { useMemo, useState } from 'react';
 
 export default function Layout() {
-    const [type, setType] = useState("4")
+    const [type, setType] = useState("1")
 
     const layoutComponent = useMemo(() => {
         switch (type) {

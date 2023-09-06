@@ -6,5 +6,6 @@ export default {
   'menu.preview': '预览',
   'menu.video': '视频',
   'menu.map': '地图',
+  'menu.tmap': '天地图',
   'menu.player': '截图标记'
 };

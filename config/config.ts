@@ -39,7 +39,12 @@ export default defineConfig({
     '//api.map.baidu.com/api?type=webgl&v=1.0&ak=2Cj12hK8X1jz5STDaOUrGShTmyaw5aUB',
     '//mapopen.bj.bcebos.com/github/BMapGLLib/DrawingManager/src/DrawingManager.min.js',
     '//mapopen.bj.bcebos.com/github/BMapGLLib/DistanceTool/src/DistanceTool.min.js',
-    '//unpkg.com/mapvgl/dist/mapvgl.min.js'
+    '//unpkg.com/mapvgl/dist/mapvgl.min.js',
+
+    '//api.tianditu.gov.cn/api?v=4.0&tk=0ca3d55aece1996457092b386cd1b040',
+    { src: '/tmapUtils/ImageOverlay.js' },
+    { src: '/tmapUtils/HeatmapOverlay.js' },
+
   ],
   // umi routes: https://umijs.org/docs/routing
   routes,

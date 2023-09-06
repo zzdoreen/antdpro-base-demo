@@ -26,3 +26,4 @@ declare let ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: 'site' | undefine
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
 declare const mapvgl: MapVGL
+declare const T: any

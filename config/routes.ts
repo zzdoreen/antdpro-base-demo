@@ -49,6 +49,12 @@
         icon: 'fire',
         path: '/map',
         component: './Map'
+      },
+      {
+        name: 'tmap',
+        icon: 'fire',
+        path: '/tmap',
+        component: './TMap'
       }
     ]
   },

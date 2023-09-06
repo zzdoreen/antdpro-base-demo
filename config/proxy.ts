@@ -26,10 +26,10 @@ export default {
     },
   },
   pre: {
-    '/api/': {
-      target: 'your pre url',
+    '/v1': {
+      target: 'http://8.140.175.191:6062/',
       changeOrigin: true,
-      pathRewrite: { '^': '' },
+      pathRewrite: { '^/v1': '/v1' },
     },
-  },
+  }
 };
