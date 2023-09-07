@@ -1,6 +1,6 @@
 import { Colors } from "@/config/dictions";
 import { LayerZIndex } from "@/models/bmap";
-import { Button, Form, InputNumber, Row, Tooltip, Typography } from "antd";
+import { Button, Form, Input, InputNumber, Row, Tooltip, Typography } from "antd";
 import classNames from "classnames";
 import ReactDOM from "react-dom";
 import { useModel } from "umi";
@@ -93,18 +93,19 @@ export const markerToolFunc = (() => {
                             <Form
                                 onFinish={v => {
                                     marker.setLngLat(new T.LngLat(v.lng, v.lat));
-                                    marker.closeInfoWindow();
+                                    infoWindow.closeInfoWindow();
                                 }}
                                 onReset={() => {
+                                    infoWindow.closeInfoWindow();
                                     markers.splice(markers.indexOf(marker), 1);
                                     map.removeOverLay(marker);
                                 }}
                                 initialValues={{ lng: lng, lat: lat, name }}
                             // initialValues={{ lng: numberFixed(lng, 2), lat: numberFixed(lat, 2), name }}
                             >
-                                {/* <Form.Item label="&nbsp;名&nbsp;&nbsp;称" name="name" rules={[{ max: 255, message: '名称长度不超过255' }]}>
+                                <Form.Item label="&nbsp;名&nbsp;&nbsp;称" name="name" rules={[{ max: 255, message: '名称长度不超过255' }]}>
                                     <Input />
-                                </Form.Item> */}
+                                </Form.Item>
                                 <Row justify="space-between">
                                     <Form.Item label="经度" name="lng" rules={[{ required: true, message: '请输入经度' }]}>
                                         <InputNumber min={-180} max={180} step={1} precision={2} style={{ width: 100 }} />
