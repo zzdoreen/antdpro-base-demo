@@ -7,5 +7,6 @@ export default {
   'menu.video': '视频',
   'menu.map': '地图',
   'menu.tmap': '天地图',
-  'menu.player': '截图标记'
+  'menu.player': '截图标记',
+  'menu.less': 'Less.js'
 };

@@ -55,6 +55,12 @@
         icon: 'fire',
         path: '/tmap',
         component: './TMap'
+      },
+      {
+        name: 'less',
+        icon: 'sketch',
+        path: '/less',
+        component: './Less'
       }
     ]
   },

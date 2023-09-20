@@ -1,0 +1,87 @@
+ .border-style {
+     border: 5px solid salmon;
+ }
+
+ .title {
+     margin-bottom: 50px;
+     font-weight: 700;
+     font-family: Agency FB, Agency FB-Bold;
+     font-size: 20px;
+ }
+
+ .container {
+     display: flex;
+     font-family: Agency FB, Agency FB-Bold;
+     font-size: 15px;
+     width: 100%;
+     align-items: center;
+     justify-content: center;
+
+     .item {
+         text-align: center;
+         font-weight: 700;
+         height: $font-weight - 200px;
+         flex: 1;
+         border: 1px dashed;
+         margin-right: 10px;
+
+         // 变量
+         &:nth-of-type(1) {
+             @color: rgb(199, 138, 170);
+             @first-content: content;
+
+             .@{first-content} {
+                 width: 100px;
+                 height: $width;
+                 background-color: @color;
+             }
+         }
+
+         // extends 继承
+         &:nth-of-type(2) {
+             .content {
+                 &:extend(.border-style); // =>  .border-style,.content {}
+                 width: 200px;
+                 height: 200px;
+             }
+         }
+
+         // mixin 混入
+         .a() {
+             // 带括号不会输出该样式，不带的话会留在css样式中
+             background-color: lightgreen;
+             border-radius: 50%;
+         }
+
+         #b(@widths: 100px) {
+             width: @widths;
+             height: @widths;
+         }
+
+         .box-shadow(@x: 0, @y: 0, @blur: 2px, @color: #000) {
+             box-shadow: @arguments; // mixin传递的所有参数
+         }
+
+         &:nth-of-type(3) {
+             .content {
+                 .a() !important;
+                 #b(150px);
+                 .box-shadow;
+             }
+         }
+
+         // 映射
+         &:nth-of-type(4) {
+             @backgroundColor: {
+                 primary: green;
+                 error: red;
+             }
+
+             .content {
+                 background-color: @backgroundColor[primary];
+                 width: 100px;
+                 height: $width;
+             }
+         }
+     }
+ }
