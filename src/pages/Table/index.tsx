@@ -2,13 +2,14 @@ import ProTable, { ProFormModal, useProTable } from "@/components/ProTable";
 import { callProTableData } from "@/services";
 import { addPlanListService, delPlanService, getPlanListService } from "@/services/api";
 import type { PlanEntity } from "@/services/entities";
-import { ModalConfirm, UnixTimeRender } from "@/utils/tools";
-import type { ProColumns } from "@ant-design/pro-components";
+import { ModalConfirm, UnixTimeRender, getPhoneStr, phoneRule } from "@/utils/tools";
+import { ProFormText, type ProColumns } from "@ant-design/pro-components";
 import { Button, message } from "antd";
 import moment from "moment";
 import style from './index.less'
 import ImportProcess from "@/components/Common/ImportComponent";
 import { useCallback, useMemo } from "react";
+import { EventTypeOpts, getvalueEnumMap } from "@/config/dictions";
 
 export default function Table() {
     const columns = useMemo(() => [
@@ -47,6 +48,15 @@ export default function Table() {
             render: (_, { age }) => age
         },
         {
+            title: '类别',
+            dataIndex: 'eventType',
+            valueEnum: getvalueEnumMap(EventTypeOpts),
+            fieldProps: {
+                mode: 'multiple',
+                maxTagCount: 'responsive'
+            }
+        },
+        {
             title: '筛选',
             dataIndex: 'sex',
             valueEnum: new Map([
@@ -70,6 +80,16 @@ export default function Table() {
                     }
                 },
             }
+        },
+        {
+            title: '手机号',
+            dataIndex: 'phone',
+            search: false,
+            // formItemProps: {
+            //     rules: [{ required: true }, phoneRule],
+            // },
+            renderText: getPhoneStr,
+            renderFormItem: (_: any, __: any, form: any) => <PhoneFormItem form={form} />
         },
         {
             title: '图片',
@@ -285,7 +305,9 @@ export default function Table() {
     return <>
         <ProTable
             {...proTableProps}
-            searchSpan={6}
+            searchSpan={8}
+            search={{ labelWidth: 150, defaultCollapsed: true }}
+            scroll={{ y: 800 }}
             addText="新建"
             // addButtonProps={{ disabled: !editable() }}
             // params={{ projectNumber }
@@ -298,5 +320,19 @@ export default function Table() {
             </ImportProcess>}
             className={style._table}
         />
-        <ProFormModal {...proFormModalProps} columns={formColumns} onSubmit={onSubmit as any} /></>
+        <ProFormModal {...proFormModalProps} columns={formColumns} onSubmit={onSubmit as any}
+            modelProps={{
+                width: 700,
+                // footer: null
+            }}
+            form={{ labelCol: { span: 5 } }}
+        /></>
+}
+
+function PhoneFormItem(props: any) {
+    // const { value, onChange, form, } = props
+    return <div style={{ display: 'flex' }}>
+        <ProFormText name='phone' rules={[{ required: true }, phoneRule]} />
+        <Button type="link">获取授权码</Button>
+    </div>
 }

@@ -38,7 +38,7 @@ export async function WebSocketManager(account: Record<'account' | 'password', s
         ws.binaryType = 'arraybuffer'
 
         ws.onopen = () => {
-            console.log("%C websocket连接启动", 'color:pink');
+            // console.log("%C websocket连接启动", 'color:pink');
             const data = Authentication.encode(Authentication.create(account)).finish()
             ws.send(getFormattedBinaryFromBuffer('instruct.Authentication', data));
         };
@@ -87,7 +87,7 @@ export async function WebSocketManager(account: Record<'account' | 'password', s
         ws.onclose = () => {
             clearInterval(timer)
             console.log("websocket连接已关闭");
-            reconnect()
+            // reconnect()
         };
         ws.onerror = () => {
             console.log("websocket连接发生错误");
@@ -119,17 +119,17 @@ export async function WebSocketManager(account: Record<'account' | 'password', s
         }
         timer = setTimeout(() => {
             console.log(`正在尝试第${connectState.count}次重连...`);
-            startWS()
+            // startWS()
         }, Math.min(30, Math.pow(2, count++)) * 1000);
         connectState = { timer, count, state }
     }
-    startWS()
+    // startWS()
     return () => {
         clearInterval(timer)
         clearTimeout(connectState.timer)
         connectState.state !== 0 && message.destroy()
         NO_RECONNECT = true
-        ws.close()
+        ws?.close()
     }
 }
 

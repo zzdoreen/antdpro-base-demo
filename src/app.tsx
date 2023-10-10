@@ -10,6 +10,7 @@ import type { RequestInterceptor, ResponseError, ResponseInterceptor } from 'umi
 import { message, notification } from 'antd';
 import { BASE_API_URL, getLogout } from './config';
 import { config } from '@/pages/Map/components/configuration'
+import { getLocalStorage, setLocalStorage } from './utils/tools';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -44,13 +45,13 @@ export async function getInitialState(): Promise<{
       // fetchUserInfo,
       // currentUser,
       settings: defaultSettings,
-      ...config
+      ...config,
     };
   }
   return {
     // fetchUserInfo,
     settings: defaultSettings,
-    ...config
+    ...config,
   };
 }
 

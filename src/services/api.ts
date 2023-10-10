@@ -28,7 +28,7 @@ export function getPlanListService(params: { id?: number, name?: string } & Pagi
             total: 10
         }
     })
-    return get<TableList<PlanEntity>>('/plan/list', params)
+    return get<TableList<PlanEntity>>('/device/list', params)
 }
 
 /**
