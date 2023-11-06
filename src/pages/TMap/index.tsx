@@ -20,7 +20,6 @@ export default function TDMap() {
         if (!map) {
             const imageURL = `http://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
                 `&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=1cdc7e840fd7b63469e908f9bfd811f7`
-
             const layers = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
             const m = new T.Map('map', { layers })
             m.centerAndZoom(new T.LngLat(102.54, 30.05), 12)
