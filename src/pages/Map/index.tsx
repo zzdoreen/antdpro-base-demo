@@ -9,6 +9,7 @@ import MapToolsComponent from './components/MapTools';
 import { useDetailRender } from './components/hooks';
 import MapBoundaryComponent from './components/MapBoundary';
 import DisasterTools from './components/DisasterTools';
+import { useMinuteRainManager } from './components/HoursRainfall';
 
 type MapCenterFunc = (margins?: number[]) => void
 
@@ -20,6 +21,7 @@ export default function MapConponent() {
     const { centerAndZoomMap } = useModel('bmap', ({ centerAndZoomMap }) => ({ centerAndZoomMap }))
 
     useDetailRender({ map })
+    useMinuteRainManager({ map })
 
     useEffect(() => {
         if (!map) return
@@ -93,6 +95,7 @@ export default function MapConponent() {
             <MapBoundaryComponent map={map!} />
             <MapToolsComponent map={map!} />
             <DisasterTools map={map!} />
+            {/* <HoursRainfall map={map!} /> */}
         </Map>
     </div>
 }

@@ -1,3 +1,5 @@
+@import '~@/config/variable.less';
+
 @dark-text-color: #CEE5F2;
 @dark-text-active-color: #c6e5ff;
 @dark-title-color: #c4e3ff;
@@ -102,6 +104,266 @@
             font-weight: bold;
             font-size: 32px;
             background-color: rgba(115, 181, 255, 0.25);
+        }
+    }
+}
+
+// .minute-rain-play-ctrl {
+//     width: 320px;
+//     height: 48px;
+//     padding: 8px;
+//     background: rgba(3, 11, 23, 0.8);
+//     border: 1px solid #4fc1ff;
+//     border-radius: 4px;
+
+//     :global {
+//         .container {
+//             display: flex;
+//             align-items: center;
+//             padding: 0;
+
+//             .play-btn {
+//                 display: inline-block;
+//                 width: 32px;
+//                 height: $width;
+//                 margin-right: 2px;
+//                 cursor: pointer;
+
+//                 .anticon {
+//                     color: @primary-color;
+//                     font-size: 32px;
+//                 }
+
+//                 .anticon-play {
+//                     display: inline-block;
+//                     width: 100%;
+//                     height: 100%;
+//                     background-image: url('/imgs/custom/ic_map_timeline_play.png');
+//                 }
+//             }
+
+//             .ant-slider {
+//                 flex: auto;
+
+//                 .ant-slider-rail {
+//                     background-color: rgba(255, 255, 255, 0.3);
+//                 }
+
+//                 .ant-slider-track {
+//                     background-color: @primary-color;
+//                 }
+
+//                 .ant-slider-handle {
+//                     width: 16px;
+//                     height: $width;
+//                     background: @primary-color;
+//                     border: none;
+//                 }
+//             }
+
+//             .time {
+//                 margin-left: 6px;
+//                 color: #fff;
+//                 font-weight: 400;
+//                 font-size: 16px;
+//                 line-height: 24px;
+//                 white-space: nowrap;
+//             }
+//         }
+//     }
+// }
+
+
+.minute-rain-play-ctrl {
+    width: 320px;
+    height: 48px;
+    padding: 8px;
+    background: rgba(3, 11, 23, 0.8);
+    border: 1px solid #4fc1ff;
+    border-radius: 4px;
+
+    :global {
+        .container {
+            display: flex;
+            align-items: center;
+            padding: 0;
+
+            .play-btn {
+                display: inline-block;
+                width: 32px;
+                height: $width;
+                margin-right: 2px;
+                cursor: pointer;
+
+                .anticon {
+                    color: @primary-color;
+                    font-size: 32px;
+                }
+
+                .anticon-play {
+                    display: inline-block;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('/imgs/ic_map_timeline_play.png');
+                }
+            }
+
+            .ant-slider {
+                flex: auto;
+
+                .ant-slider-rail {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+
+                .ant-slider-track {
+                    background-color: @primary-color;
+                }
+
+                .ant-slider-handle {
+                    width: 16px;
+                    height: $width;
+                    background: @primary-color;
+                    border: none;
+                }
+            }
+
+            .time {
+                margin-left: 6px;
+                color: #fff;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 24px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.rain-legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 1px;
+    padding: 12px;
+    background-color: #fff;
+    border: 2px solid #999;
+    border-radius: 4px;
+    box-shadow: none !important;
+
+    :global {
+
+        .level-legend,
+        .radar-legend {
+            &:not(:only-child) .ant-descriptions-item-content {
+                line-height: 1.5;
+            }
+        }
+
+        .legend-title {
+            margin-bottom: 5px;
+            color: #424242;
+            font-size: 14px;
+            letter-spacing: 0.89px;
+            text-align: center;
+        }
+
+        .legend-info {
+            .ant-descriptions-view table {
+                display: block;
+            }
+
+            .ant-descriptions-item {
+                padding-bottom: 0;
+            }
+
+            .ant-descriptions-item-container {
+                align-items: center;
+                justify-content: space-between;
+                padding: 1px 0;
+            }
+
+            .ant-descriptions-item-label,
+            .ant-descriptions-item-content {
+                color: #424242;
+                font-size: 12px;
+                vertical-align: text-top;
+            }
+        }
+
+        .legend-block {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 12px;
+        }
+
+        .legend-circle {
+            position: relative;
+            top: 4px;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-defects {
+            display: inline-block;
+            width: 30px;
+            height: 1.5px;
+            margin-top: 4px;
+            vertical-align: middle;
+            background-color: #f00;
+        }
+
+        .legend-epicenter {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 6px 9px 0;
+            background-color: #ff0;
+            border: 1px solid #000;
+            border-radius: 50%;
+        }
+
+        .ant-descriptions-item-content {
+            line-height: 2;
+        }
+    }
+
+    &.fullscreen {
+        background-color: #071532;
+        border-color: #2957a4;
+        border-radius: 4px;
+
+        :global {
+            @legend-text-color: #e0eeff;
+
+            .legend-title {
+                color: @legend-text-color;
+                font-size: 16px;
+            }
+
+            .ant-descriptions-item-content {
+                color: @legend-text-color !important;
+            }
+
+            .intensity-legend,
+            .ant-descriptions-item {
+                background-color: transparent;
+            }
+
+            .ant-descriptions-item-container {
+                background-color: transparent;
+            }
+
+            .legend-info {
+
+                .ant-descriptions-item-label,
+                .ant-descriptions-item-content {
+                    font-size: 14px;
+                    color: @legend-text-color !important;
+                }
+            }
         }
     }
 }

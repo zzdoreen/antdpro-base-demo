@@ -36,11 +36,11 @@
   "/341.js": "./341.js",
   "/88.js": "./88.js",
   "/764.js": "./764.js",
-  "/210.js": "./210.js",
+  "/406.js": "./406.js",
   "/288.chunk.css": "./288.chunk.css",
   "/288.js": "./288.js",
   "/558.js": "./558.js",
-  "/636.js": "./636.js",
+  "/170.js": "./170.js",
   "/public/video/big_buck_bunny.mp4": "./video/big_buck_bunny.mp4",
   "/public/template/_template_api.pdf": "./template/_template_api.pdf",
   "/public/tmapUtils/HeatmapOverlay.js": "./tmapUtils/HeatmapOverlay.js",
@@ -53,5 +53,6 @@
   "/public/protobuf/instruct.proto": "./protobuf/instruct.proto",
   "/public/icons/icon-128x128.png": "./icons/icon-128x128.png",
   "/public/pro_icon.svg": "./pro_icon.svg",
+  "/public/imgs/ic_map_timeline_play.png": "./imgs/ic_map_timeline_play.png",
   "/public/CNAME": "./CNAME"
 }

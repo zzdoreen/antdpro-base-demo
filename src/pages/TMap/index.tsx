@@ -76,7 +76,7 @@ export default function TDMap() {
 
     return <div className='wrapper'>
         <div id="map" style={{ width: '100%', height: '850px' }} />
-        <MapBoundary map={map} />
+        {/* <MapBoundary map={map} /> */}
         <MapTools map={map} />
         <DisasterTools map={map} />
     </div>

@@ -60,7 +60,7 @@ export default function MapBoundaryComponent({ map }: { map: BMapGL.Map }) {
     }, [map, debouncedValue])
 
     return <div className="boundarys">
-        <Input value={value} onChange={v => setValue(v.target.value)} />
+        <Input placeholder="请输入省\市\区\县获取行政边界" value={value} onChange={v => setValue(v.target.value)} />
         <Button type="primary" onClick={handleRenderBoundary}>确定</Button>
     </div>
 } 

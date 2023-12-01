@@ -9,6 +9,7 @@ import { Modal } from "antd"
 import type { Rule } from "antd/lib/form"
 import moment from "moment"
 import { stringify } from "querystring"
+import { useEffect } from "react";
 // import type { IRoute } from "umi"
 /**
  * JSON序列化并本地存储
@@ -387,6 +388,20 @@ export function NormalConfirm(todo: string) {
   })
 }
 
+export function useAsyncEffect(
+  func: (isValid: () => boolean) => void | Function,
+  dependencies?: any[]
+) {
+  useEffect(() => {
+    let flag = true
+    const isValid = () => flag
+    const cleaner = func(isValid)
+    return () => {
+      flag = false
+      cleaner?.()
+    }
+  }, dependencies)
+}
 
 /** 获取港澳台的边界数据 */
 export function getSpecialAreaBoundary(name: string, handler: (boundaries: number[][][]) => void) {

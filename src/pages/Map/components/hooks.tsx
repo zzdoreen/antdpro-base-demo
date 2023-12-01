@@ -7,7 +7,7 @@ import { info } from './configuration'
 import { DOMControl } from "./utils";
 import { HeatMapLegend, LegendClassName } from "./legend";
 
-export function useDetailRender({ map, }: { map: BMapGL.Map }) {
+export function useDetailRender({ map, }: { map: BMapGL.Map | undefined }) {
     const { mapState, marginsRef, setMapState } = useModel('bmap', ({ mapState, marginsRef, setMapState }) => ({ setMapState, mapState, marginsRef }))
 
     // 热力图
