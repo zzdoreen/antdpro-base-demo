@@ -55,9 +55,11 @@ export function useMinuteRainManager({ map }: { map: BMapGL.Map | undefined }) {
             state.playing = false
             const imgOverlay = map?.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
             return () => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 imgOverlay && map?.removeOverlay(imgOverlay)
             }
         }
+
         return RainPictureRender(data, map)
         // return RainPictureRender(data, map, state.index === 0)
     }, [map, state.index, state.list]);
@@ -110,7 +112,6 @@ export function useMinuteRainManager({ map }: { map: BMapGL.Map | undefined }) {
     //         state.list = []
     //     }
     // }, [visible]);
-
     return { loading }
 }
 
@@ -162,7 +163,7 @@ function getBounds(lngs: [number, number], lats: [number, number]) {
 //                 url: url,
 //             })
 //             k.draw?.()
-// k.show?.()
+//             k.show?.()
 //         } else if (hide) {
 //             k.hide?.()
 //             map.removeOverlay(k)
@@ -175,9 +176,11 @@ function getBounds(lngs: [number, number], lats: [number, number]) {
 // }
 function RainPictureRender(data: RainDataEntity, map: BMapGL.Map, contextMenuRender?: (bgOverlay: BMapGL.GroundOverlay) => Function | undefined) {
     if (!data) return
+    const imgOverlay = map?.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
+    if (imgOverlay) map.removeOverlay(imgOverlay)
+
     const { lngs, lats, url } = data
     const bounds = getBounds(lngs, lats)
-    const k = map.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
 
     const bgOverlay = new BMapGL.GroundOverlay(bounds, {
         // @ts-ignore 参数变了文档又不更新

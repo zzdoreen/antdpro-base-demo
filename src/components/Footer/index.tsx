@@ -5,7 +5,7 @@ import { useIntl } from 'umi';
 const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
-    id: '-',
+    id: 'footer',
     defaultMessage: '民风淳朴米花町',
   });
 
