@@ -42,8 +42,8 @@ export default defineConfig({
     '//unpkg.com/mapvgl/dist/mapvgl.min.js',
 
     '//api.tianditu.gov.cn/api?v=4.0&tk=0ca3d55aece1996457092b386cd1b040',
-    { src: '/tmapUtils/ImageOverlay.js' },
-    { src: '/tmapUtils/HeatmapOverlay.js' },
+    { src: './tmapUtils/ImageOverlay.js' },
+    { src: './tmapUtils/HeatmapOverlay.js' },
 
   ],
   // umi routes: https://umijs.org/docs/routing
