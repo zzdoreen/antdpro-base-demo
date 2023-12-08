@@ -10,7 +10,7 @@ const { REACT_APP_ENV } = process.env;
 // https://v3.umijs.org/zh-CN/config
 export default defineConfig({
   history: { type: 'hash' },
-  publicPath: './',
+  publicPath: '/',
   antd: {},
   dva: {
     hmr: true,
