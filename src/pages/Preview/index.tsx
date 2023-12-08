@@ -19,9 +19,9 @@ export default function Preview() {
     return <div className='preview-container'>
         <DocViewer
             documents={[
-                { uri: '/zzdoreen/test/raw/master/api.docx' },
-                { uri: '/template/_template_api.pdf', },
-                { uri: '/favicon.png' },
+                { uri: 'https://gitee.com/zzdoreen/test/raw/master/api.docx' },
+                { uri: 'https://gitee.com/zzdoreen/test/raw/master/_template_api.pdf', },
+                { uri: 'https://gitee.com/zzdoreen/test/raw/master/1.png' },
             ]}
             pluginRenderers={DocViewerRenderers}
         />
