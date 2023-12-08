@@ -19,9 +19,9 @@ export default function Preview() {
     return <div className='preview-container'>
         <DocViewer
             documents={[
-                { uri: 'https://gitee.com/zzdoreen/test/raw/master/api.docx' },
-                { uri: 'https://gitee.com/zzdoreen/test/raw/master/_template_api.pdf', },
-                { uri: 'https://gitee.com/zzdoreen/test/raw/master/1.png' },
+                { uri: '/antdpro-base-demo/public/template/api.docx' },
+                { uri: '/antdpro-base-demo/public/template/_template_api.pdf', },
+                { uri: '/antdpro-base-demo/public/imgs/1.png' },
             ]}
             pluginRenderers={DocViewerRenderers}
         />

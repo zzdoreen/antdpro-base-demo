@@ -82,7 +82,7 @@ export default function Player() {
         <svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" ref={svgOverlay}>
             <foreignObject x="0" y="0" width="500" height="300">
                 <div ref={markerOverlay} className="video-marker-cover" style={{ width: '500px', height: '300px', display: markerFlag ? 'block' : 'none' }} />
-                <video autoPlay muted src="https://gitee.com/zzdoreen/test/raw/master/big_buck_bunny.mp4" width={500} height={300} id="video" controls />
+                <video autoPlay muted src="/antdpro-base-demo/public/video/big_buck_bunny.mp4" width={500} height={300} id="video" controls />
             </foreignObject>
             <path ref={pathOverlayer} fill="none" stroke="red" d={points.path} />
         </svg>
