@@ -194,7 +194,7 @@ export const flashfloodMapRender = (map: BMapGL.Map, detail: DisasterInfoEntity<
 
     controls.push([legend, {
         position: T_ANCHOR_BOTTOM_LEFT,
-        offset: new T.Point(16, 60)
+        offset: new T.Point(16, 0)
     }])
     overlays.forEach(overlay => map.addOverLay(overlay))
     controls.forEach(([control, { position, offset }]) => {

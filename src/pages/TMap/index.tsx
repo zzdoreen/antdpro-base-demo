@@ -5,7 +5,7 @@ import { useModel } from 'umi'
 import type { MapCenterFunc } from '@/models/bmap'
 import { useDetailRender } from './components/hooks'
 import DisasterTools from './components/DisasterTools'
-import { MapBoundary } from './components/MapBoundary'
+// import { MapBoundary } from './components/MapBoundary'
 
 export default function TDMap() {
     const [map, setMap] = useState<any>()

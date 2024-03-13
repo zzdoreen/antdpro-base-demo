@@ -30,7 +30,7 @@ export function useDetailRender({ map, }: { map: BMapGL.Map | undefined }) {
             </div>,
             {
                 anchor: BMAP_ANCHOR_BOTTOM_LEFT,
-                offset: new BMapGL.Size(left + 16, bottom + 60),
+                offset: new BMapGL.Size(left + 136, bottom + 60),
                 className: LegendClassName
             }
         );

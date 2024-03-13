@@ -37,7 +37,8 @@ export default function Table() {
             },
             search: {
                 transform: (v: [number, number]) => {
-                    if (!v) return {}
+                    if (modal?.visible) return
+                    else if (!v) return {}
                     const [min, max] = v
                     return {
                         minAge: min,
@@ -51,6 +52,7 @@ export default function Table() {
             title: '类别',
             dataIndex: 'eventType',
             valueEnum: getvalueEnumMap(EventTypeOpts),
+            // valueEnum: new Map([[1, '11'], [2, '22']]),
             fieldProps: {
                 mode: 'multiple',
                 maxTagCount: 'responsive'
@@ -131,7 +133,6 @@ export default function Table() {
                 ],
             }),
             fieldProps: (form) => {
-                console.log(form?.getFieldValue('startAt'))
                 const startAt = form?.getFieldValue('startAt')?.startOf('day');
                 return {
                     allowClear: false,
@@ -312,7 +313,7 @@ export default function Table() {
             // addButtonProps={{ disabled: !editable() }}
             // params={{ projectNumber }
             // eslint-disable-next-line react/jsx-key
-            extraActions={<ImportProcess name='导入' service={() => getPlanListService({})} reload={reload}
+            extraActions={<ImportProcess name='xx' service={() => getPlanListService({})} reload={reload}
                 template='/aa.xlsx'
                 tootip="仅支持xlsx格式文件,文件小于30MB" accept=".xlsx"
             >

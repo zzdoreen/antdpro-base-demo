@@ -21,7 +21,6 @@ export default function MapConponent() {
     const { centerAndZoomMap } = useModel('bmap', ({ centerAndZoomMap }) => ({ centerAndZoomMap }))
 
     useDetailRender({ map })
-    // 分钟级降水动图
     useMinuteRainManager({ map })
 
     useEffect(() => {

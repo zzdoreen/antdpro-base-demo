@@ -98,6 +98,7 @@ export async function getProto() {
     if (proto) return proto
     return protobuf.load("/protobuf/instruct.proto")
         .then(root => {
+            console.log(root, root.lookupType("instruct.Authentication"))
             const Authentication = root.lookupType("instruct.Authentication")
             const Consequence = root.lookupType("instruct.Consequence")
             const WsHeartbeat = root.lookupType("instruct.WsHeartbeat")

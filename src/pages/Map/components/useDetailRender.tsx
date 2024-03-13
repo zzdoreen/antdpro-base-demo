@@ -110,7 +110,7 @@ export const intensityMapRender = (map: BMapGL.Map, intensity: IntensityInfoEnti
         </Descriptions>
     </div>, {
         anchor: BMAP_ANCHOR_BOTTOM_LEFT,
-        offset: new BMapGL.Size(16, 60)
+        offset: new BMapGL.Size(136, 60)
     });
     controls.push(legend)
 
@@ -192,7 +192,7 @@ export const flashfloodMapRender = (map: BMapGL.Map, detail: DisasterInfoEntity<
         </div>
     </div>, {
         anchor: BMAP_ANCHOR_BOTTOM_LEFT,
-        offset: new BMapGL.Size(16, 60)
+        offset: new BMapGL.Size(136, 60)
         // className: styles.legend
     });
     controls.push(legend)

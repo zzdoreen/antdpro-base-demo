@@ -9,7 +9,6 @@ import type { PaginationParams, PlanConfig, PlanEntity, PlanRecordReceive, PlanR
  * @returns 
  */
 export function getPlanListService(params: { id?: number, name?: string } & PaginationParams) {
-    console.log(params)
     return Promise.resolve({
         code: 0,
         data: {
@@ -32,7 +31,7 @@ export function getPlanListService(params: { id?: number, name?: string } & Pagi
 }
 
 /**
- * 新增预案
+ * 新增
  * @param params 
  * @returns 
  */
@@ -41,7 +40,7 @@ export function addPlanListService(params: PlanEntity) {
 }
 
 /**
- * 更新预案
+ * 更新
  * @param params 
  * @returns 
  */
@@ -50,76 +49,13 @@ export function updatePlanService(params: PlanEntity) {
 }
 
 /**
- * 删除预案
+ * 删除
  * @param id 
  * @returns 
  */
 export function delPlanService(id: number | string) {
     return del(`/plan/${id}`)
 }
-
-/**
- * 获取策略配置
- * @returns 
- */
-export function getPlanDefaultConfigService() {
-    return get<PlanConfig>('/plan/strategy')
-}
-
-/**
- * 创建策略配置
- * @param param 
- * @returns 
- */
-export function addPlanDefaultConfigService(param: PlanConfig) {
-    return post('/plan/strategy', param)
-}
-
-/**
- * 更新策略配置
- * @param param 
- * @returns 
- */
-export function editPlanDefaultConfigService(param: PlanConfig) {
-    return put('/plan/strategy', param)
-}
-
-/**
- * 预案启动记录列表
- * @param param 
- * @returns 
- */
-export function getPlanStartListService(param: { eventType: number, level: number } & PaginationParams) {
-    return get<TableList<PlanStartListEntity>>('/plan/record/list', param)
-}
-
-/**
- * 预案启动记录 - 通知发送情况
- * @param param 
- * @returns 
- */
-export function getPlanRecordReceiveService(param: { emergencyPlanRecordId: number, channel: ChannelType } & PaginationParams) {
-    return get<TableList<PlanRecordReceive>>('/plan/record/receive', param)
-}
-
-/**
- * 发送记录统计
- * @param emergencyPlanRecordId 
- * @returns 
- */
-export function getRecordReceiveStatistic(emergencyPlanRecordId: number) {
-    return get<PlanRecordStatistics>('/plan/record/statistics', { emergencyPlanRecordId })
-}
-
-/**
- * 编辑预案启动记录
- * @param param 
- * @returns 
- */
-export function editPlanStartListService(param: PlanStartListEntity) {
-    return put('/plan/record', param)
-}
-
 
 export function getHoursRainfallService() {
     return Promise.resolve({
