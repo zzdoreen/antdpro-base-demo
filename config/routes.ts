@@ -57,6 +57,12 @@
         component: './TMap'
       },
       {
+        name: 'three',
+        icon: 'sketch',
+        path: '/three',
+        component: './Three'
+      },
+      {
         name: 'less',
         icon: 'sketch',
         path: '/less',

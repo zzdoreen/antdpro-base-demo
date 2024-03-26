@@ -30,7 +30,7 @@ export default function MapConponent() {
         const polylines: BMapGL.Polyline[] = []
         let pts: BMapGL.Point[] = []
 
-        boundarys.forEach((boundary, i) => {
+        boundarys.forEach((boundary: number[][], i: any) => {
             const points: BMapGL.Point[] = boundary.map(([lng, lat]: number[]) => {
                 // return new BMap.Point(lng, lat)
                 // ADD 边界线经纬度转换

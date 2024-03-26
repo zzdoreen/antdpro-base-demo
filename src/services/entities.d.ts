@@ -1,6 +1,13 @@
-import { ChannelType, Sw, UserChannelType } from "@/config/dictions";
-import { Level } from "@/utils/earthquake";
+import type { ChannelType, Sw, UserChannelType } from "@/config/dictions";
 
+export interface InitialConfigEntity {
+    serveArea: {
+        code: number
+        level: number
+        name: string
+        polygons: [number, number][][]
+    }
+}
 export interface BaseResponse<T> {
     code: number;
     data: T;

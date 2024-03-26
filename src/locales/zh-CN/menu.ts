@@ -8,6 +8,7 @@ export default {
   'menu.map': '地图',
   'menu.tmap': '天地图',
   'menu.player': '截图标记',
+  'menu.three': 'Three.js',
   'menu.less': 'Less.js',
   'footer': '民风淳朴米花町🤡'
 };
