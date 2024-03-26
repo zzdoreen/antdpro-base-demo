@@ -36,10 +36,6 @@ export default defineConfig({
     ie: 11,
   },
   headScripts: [
-    // three
-    '//unpkg.com/three@0.162.0/build/three.module.js',
-    '//unpkg.com/three@0.162.0/examples/jsm/',
-
     '//api.map.baidu.com/api?type=webgl&v=1.0&ak=2Cj12hK8X1jz5STDaOUrGShTmyaw5aUB',
     '//mapopen.bj.bcebos.com/github/BMapGLLib/DrawingManager/src/DrawingManager.min.js',
     '//mapopen.bj.bcebos.com/github/BMapGLLib/DistanceTool/src/DistanceTool.min.js',
