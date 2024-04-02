@@ -50,10 +50,13 @@ export default () => {
             scene.add(line)
             renderer.render(scene, camera)
 
+            return () => {
+                geometry?.dispose()
+                lineMaterial?.dispose()
+
+            }
         }
-
     }, [threeRef])
-
 
     return <canvas ref={threeRef} />
 }
