@@ -15,7 +15,7 @@ export default function Echarts() {
         const barOption = {
             // 标题
             title: {
-                text: "标题"
+                text: "bar & line"
             },
 
             // 边距
@@ -49,10 +49,10 @@ export default function Echarts() {
                     type: "shadow" // 阴影 | 直线
                 },
                 // minInterval: 100, // 最小间隔
-                type: "value", // value | category | time | log 数值 | 类目 | 时间 | 对数
                 // min:'2023-06-09',
                 // max: '2023-06-16',
-                // data: ['2023-06-09', '2023-06-10', '2023-06-11', '2023-06-12', '2023-06-13', '2023-06-14', '2023-06-15', '2023-06-16']
+                type: 'category',// value | category | time | log 数值 | 类目 | 时间 | 对数
+                data: ['2023-06-09', '2023-06-10', '2023-06-11', '2023-06-12', '2023-06-13', '2023-06-14',],
                 name: "x",
                 nameLocation: "end", // 坐标轴名称显示位置
 
@@ -103,7 +103,23 @@ export default function Echarts() {
 
                     // 区域填充样式
                     areaStyle: {
-                        color: "pink"
+                        // color: "pink",
+                        // color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)']
+
+                        // new echarts.graphic.LinearGradient(右,下,左,上) 起止位置
+                        // 0 0 0 1则代表渐变色从正上方开始
+                        // 0 1 0 0代表从正下方向正上方渐变
+                        // 1 0 0 1代表从右上方向左下方渐变
+                        color: new echarts.graphic.LinearGradient(1, 0, 0, 1, [
+                            {
+                                offset: 0,
+                                color: 'rgba(58,77,233,1)'
+                            },
+                            {
+                                offset: 1,
+                                color: 'rgba(58,77,233,0.3)'
+                            }
+                        ])
                     },
                     // 标注点
                     markPoint: {
@@ -181,7 +197,7 @@ export default function Echarts() {
         const pieChart = echarts.init(pieRef.current)
         const pieOption = {
             title: {
-                text: "\n \n 标题",
+                text: "\n \n pie",
                 subtext: "副标题:16 \n aaa:20 \n bbb:100",
                 top: 'center',
                 right: 'center'
@@ -302,6 +318,9 @@ export default function Echarts() {
         // dataset
         const datasetChart = echarts.init(datasetRef.current)
         const datasetOption = {
+            title: {
+                text: 'dataset'
+            },
             legend: {},
             tooltip: {},
             /* 
@@ -336,7 +355,8 @@ export default function Echarts() {
             },
             xAxis: { type: "category" },
             yAxis: {},
-            series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+            // type : pie | line | bar
+            series: [{ type: "line" }, { type: "bar" }, { type: "bar" }]
         }
         datasetChart.setOption(datasetOption)
 
@@ -358,13 +378,13 @@ export default function Echarts() {
 
     return <Row gutter={[12, 12]}>
         <Col span={8}>
-            <div className="charts bar" ref={barRef} />
+            <div className="charts" ref={barRef} />
         </Col>
         <Col span={8}>
-            <div className="charts pie" ref={pieRef} />
+            <div className="charts" ref={pieRef} />
         </Col>
         <Col span={8}>
-            <div className="charts dataset" ref={datasetRef} />
+            <div className="charts" ref={datasetRef} />
         </Col>
     </Row>
 }
