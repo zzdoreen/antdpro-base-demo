@@ -1,10 +1,15 @@
+// @ts-ignore
 import { BorderBox4 } from '@jiaminghi/data-view-react'
 import './index.less'
+// @ts-ignore
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// @ts-ignore
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const lessOpts = [
     {
         name: '变量复用',
-        code: `
+        code: <SyntaxHighlighter language='less' style={dark}>{`
             {
                 @color: rgb(199, 138, 170);
                 @first-content: content;
@@ -14,11 +19,13 @@ const lessOpts = [
                     height: $width;
                     background-color: @color;
                 }
-            }`
+            }`}</SyntaxHighlighter>
+
     },
     {
         name: ' :extend 复用样式(继承)',
-        code: `
+        code: <SyntaxHighlighter language='less' style={dark}>{
+            `
         .border-style {
             border: 5px solid salmon;
         }
@@ -31,10 +38,13 @@ const lessOpts = [
             }
         }
         `
+        }</SyntaxHighlighter>
     },
     {
         name: ' mixin 减少重复样式编写',
-        code: `
+        code: <SyntaxHighlighter language='less' style={dark}>
+            {
+                `
         .borderStyle() {
             // 带括号不会输出该样式，不带的话会留在css样式中
             background-color: lightgreen;
@@ -58,10 +68,14 @@ const lessOpts = [
             }
         }
         `
+            }
+        </SyntaxHighlighter>
     },
     {
         name: '映射',
-        code: `
+        code: <SyntaxHighlighter language='less' style={dark}>
+            {
+                `
         {
             @backgroundColor: {
                 primary: green;
@@ -75,6 +89,8 @@ const lessOpts = [
             }
         }
         `
+            }
+        </SyntaxHighlighter>
     },]
 
 export default function Less() {
@@ -94,13 +110,7 @@ export default function Less() {
         </div>
         <div className="container">
             {
-                lessOpts.map(({ code, name }) => <div className='item' key={name}>
-                    <BorderBox4 style={{ padding: 20 }} color={['#ddd', '#ccc']} reverse>
-                        <pre style={{ textWrap: 'wrap' }}>
-                            <code>{code}</code>
-                        </pre>
-                    </BorderBox4>
-                </div>)
+                lessOpts.map(({ code, name }) => <div className='item' key={name}>{code}</div>)
             }
         </div>
     </div>
