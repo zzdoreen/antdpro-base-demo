@@ -62,12 +62,12 @@
         path: '/echarts',
         component: './Echarts'
       },
-      {
-        name: 'three',
-        icon: 'sketch',
-        path: '/three',
-        component: './Three'
-      },
+      /*  {
+         name: 'three',
+         icon: 'sketch',
+         path: '/three',
+         component: './Three'
+       }, */
       {
         name: 'less',
         icon: 'sketch',
