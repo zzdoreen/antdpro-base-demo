@@ -1,9 +1,8 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { Collapse, message } from 'antd';
 import * as echarts from 'echarts';
-import { json } from 'express';
 import type { RefObject } from "react";
-import { useEffect, useMemo, useRef } from "react"
+import { useEffect, useRef } from "react"
 // @ts-ignore
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 // @ts-ignore
@@ -27,7 +26,7 @@ function useEchartsInit(ref: RefObject<HTMLElement>, option: any) {
 
         return () => {
             chart?.dispose()
-            window.addEventListener('resize', handleChartRest)
+            window.removeEventListener('resize', handleChartRest)
         }
     }, [])
 }

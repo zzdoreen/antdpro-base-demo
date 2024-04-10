@@ -1,0 +1,131 @@
+.timeStyle {
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    width: 200px;
+    height: 20px;
+    color: #ccc;
+}
+
+.leftTriangle(@borderWidth: 8px, @bgColor: #f0f0f0) {
+    content: '';
+    display: inline-block;
+    border: @borderWidth solid transparent;
+    border-right-color: @bgColor;
+    position: absolute;
+    left: -2*@borderWidth;
+    top: calc(50% - @borderWidth);
+}
+
+.rightTriangle(@borderWidth: 8px, @bgColor: #f0f0f0) {
+    content: '';
+    display: inline-block;
+    border: @borderWidth solid transparent;
+    border-left-color: @bgColor;
+    position: absolute;
+    right: -2*@borderWidth;
+    top: calc(50% - @borderWidth);
+}
+
+.container {
+    width: 500px;
+    height: calc(100vh - 300px);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #333;
+    border-radius: 15px;
+
+
+
+    .msg-header {
+        background: #222;
+        margin-top: -20px;
+        margin-left: -20px;
+        // margin-bottom: 20px;
+        width: calc(100% + 40px);
+        height: 50px;
+        text-align: center;
+        color: #f0f0f0;
+        box-shadow: 0 1px 5px #222;
+        font-size: 18px;
+        line-height: 50px;
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+    }
+
+    .content {
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        display: flex;
+        flex-direction: column;
+
+        /* IE and Edge */
+        &::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari and Opera */
+        }
+
+        .message {
+            border: 1px solid #ddd;
+            width: fit-content;
+            padding: 5px 10px;
+            max-width: 400px;
+            position: relative;
+            background: #f0f0f0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+
+            &.user {
+                align-self: flex-end;
+                margin-right: 9px;
+                background: #B1DF42;
+                border: 1px solid #B1DF42;
+
+                .time {
+                    text-align: right;
+                    right: 0px;
+                    .timeStyle()
+                }
+
+                &::after {
+                    .rightTriangle(8px, #B1DF42)
+                }
+
+                &::before {
+                    .rightTriangle(9px, #B1DF42)
+                }
+            }
+
+            &.customer-service {
+                margin-left: 9px;
+
+                .time {
+                    text-align: left;
+                    left: 0px;
+                    .timeStyle()
+                }
+
+                &::after {
+                    .leftTriangle()
+                }
+
+                &::before {
+                    .leftTriangle(9px, #ddd)
+                }
+            }
+
+
+        }
+    }
+
+    footer {
+        display: flex;
+        flex-direction: row;
+    }
+
+
+}

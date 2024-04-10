@@ -10,5 +10,7 @@ export default {
   'menu.player': '截图标记',
   'menu.three': 'Three.js',
   'menu.less': 'Less.js',
+  'menu.music': '播放器',
+  'menu.turing': '图灵智障',
   'footer': '民风淳朴米花町🤡'
 };

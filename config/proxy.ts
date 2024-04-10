@@ -17,6 +17,16 @@ export default {
       changeOrigin: true,
       // pathRewrite: { '^': '' },
     },
+    '/api': {
+      target: 'https://api.uomg.com',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '/api' },
+    },
+    '/openapi': {
+      target: 'http://openapi.turingapi.com',
+      changeOrigin: true,
+      pathRewrite: { '^/openapi': '/openapi' },
+    }
   },
   test: {
     '/api/': {

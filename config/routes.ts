@@ -58,7 +58,7 @@
       },
       {
         name: 'echarts',
-        icon: 'sketch',
+        icon: 'code',
         path: '/echarts',
         component: './Echarts'
       },
@@ -73,6 +73,18 @@
         icon: 'sketch',
         path: '/less',
         component: './Less'
+      },
+      {
+        name: 'music',
+        icon: 'bug',
+        path: '/music',
+        component: './Music'
+      },
+      {
+        name: 'turing',
+        icon: 'robot',
+        path: '/turing',
+        component: './Turing'
       }
     ]
   },

@@ -1,11 +1,11 @@
 import type { CurrentUserConfig } from "@/services/entities";
-import { getLocalStorage, setLocalStorage } from "@/utils/tools";
+import { setLocalStorage } from "@/utils/tools";
 import { RainType } from "./dictions";
 
 /**
  * http服务器请求基地址
  */
-export const BASE_API_URL = '/v1';
+export const BASE_API_URL = '';
 
 /**
  * 开发环境服务器地址
