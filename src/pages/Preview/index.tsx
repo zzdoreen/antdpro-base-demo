@@ -19,9 +19,9 @@ export default function Preview() {
     return <div className='preview-container'>
         <DocViewer
             documents={[
-                { uri: '/antdpro-base-demo/public/template/api.docx' },
-                { uri: '/antdpro-base-demo/public/template/_template_api.pdf', },
-                { uri: '/antdpro-base-demo/public/imgs/1.png' },
+                { uri: '/template/api.docx' },
+                { uri: '/template/_template_api.pdf', },
+                { uri: '/template/1.png' },
             ]}
             pluginRenderers={DocViewerRenderers}
         />

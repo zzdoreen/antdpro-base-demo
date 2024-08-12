@@ -85,6 +85,12 @@
         icon: 'robot',
         path: '/turing',
         component: './Turing'
+      },
+      {
+        name: 'gsap',
+        icon: 'robot',
+        path: '/gsap',
+        component: './Gsap'
       }
     ]
   },

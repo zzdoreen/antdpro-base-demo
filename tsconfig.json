@@ -37,6 +37,6 @@
     ".prettierrc.js",
     "jest.config.js",
     "mock/*"
-  ],
+, "c:/Users/zz106/Desktop/umi-template/src/pages/Export", "c:/Users/zz106/Desktop/umi-template/src/pages/Print"  ],
   "exclude": ["node_modules", "build", "dist", "scripts", "src/.umi/*", "webpack", "jest"]
 }

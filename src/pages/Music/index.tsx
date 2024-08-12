@@ -28,7 +28,6 @@ export default function Music() {
             }
         }
     })
-
     return <div className="bg">
         <div className="type">
             <Divider orientation="center">分类</Divider>

@@ -7,10 +7,9 @@ import classNames from "classnames";
 import legendStyles from './legend.less'
 import { getHoursRainfallService } from "@/services/api";
 import { Access, useModel } from "umi"
-import { PauseOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { useAsyncEffect } from "@/utils/tools";
-import { LayerZIndex } from "@/models/bmap";
+import { CaretRightOutlined, PauseOutlined } from "@ant-design/icons";
 
 export function useMinuteRainManager({ map }: { map: BMapGL.Map | undefined }) {
     const [loading, setloading] = useState(false);
@@ -71,7 +70,7 @@ export function useMinuteRainManager({ map }: { map: BMapGL.Map | undefined }) {
         const legend = new DOMControl(
             <div className="container">
                 <div className="play-btn" onClick={() => state.playing = !state.playing}>
-                    <Access accessible={state.playing} fallback={<span className="anticon anticon-play" />} >
+                    <Access accessible={state.playing} fallback={<CaretRightOutlined />} >
                         <PauseOutlined />
                     </Access>
                 </div>
@@ -150,54 +149,49 @@ function getBounds(lngs: [number, number], lats: [number, number]) {
  * @param hide 
  * @returns 
  */
-// function RainPictureRender(data: RainDataEntity, map: BMapGL.Map, hide?: boolean) {
-//     const { lngs, lats, url } = data
-//     const bounds = getBounds(lngs, lats)
-//     const k = map.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
-//     if (k) {
-//         if (url) {
-//             // 不知道为什么页面不生效
-//             k?.setOptions({
-//                 type: 'image', opacity: 1,
-//                 // texture: url,
-//                 url: url,
-//             })
-//             k.draw?.()
-//             k.show?.()
-//         } else if (hide) {
-//             k.hide?.()
-//             map.removeOverlay(k)
-//         }
-//     } else {
-//         const bgOverlay = new BMapGL.GroundOverlay(bounds, { type: 'image', opacity: 1, url })
-//         map.addOverlay(bgOverlay)
-//     }
-//     return
-// }
-function RainPictureRender(data: RainDataEntity, map: BMapGL.Map, contextMenuRender?: (bgOverlay: BMapGL.GroundOverlay) => Function | undefined) {
-    if (!data) return
-    const imgOverlay = map?.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
-    if (imgOverlay) map.removeOverlay(imgOverlay)
-
+function RainPictureRender(data: RainDataEntity, map: BMapGL.Map, hide?: boolean) {
     const { lngs, lats, url } = data
     const bounds = getBounds(lngs, lats)
-
-    const bgOverlay = new BMapGL.GroundOverlay(bounds, {
-        // @ts-ignore 参数变了文档又不更新
-        type: 'image',
-        url,
-    })
-    map.addOverlay(bgOverlay)
-    // @ts-ignore
-    const dom = bgOverlay.ca as HTMLElement
-    if (dom) dom.style.zIndex = LayerZIndex.RAIN + ''
-
-    const contextMenuCleaner = contextMenuRender?.(bgOverlay)
-    return () => {
-        contextMenuCleaner?.()
-        map.removeOverlay(bgOverlay)
+    const k = map.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
+    if (k) {
+        if (url)
+            // https://lbsyun.baidu.com/index.php?title=jspopularGL/theupdatelog&oldid=18195  - 2023.05.29 更新日志
+            // mapgl改变覆盖物图片不是setImageURL、是setImage(url:string,bounds?:BMapGL.Bounds) 
+            k?.setImage(url, bounds)
+        else if (hide) {
+            k.hide?.()
+            map.removeOverlay(k)
+        }
+    } else {
+        const bgOverlay = new BMapGL.GroundOverlay(bounds, { type: 'image', opacity: 1, url })
+        map.addOverlay(bgOverlay)
     }
+    return
 }
+// function RainPictureRender(data: RainDataEntity, map: BMapGL.Map, contextMenuRender?: (bgOverlay: BMapGL.GroundOverlay) => Function | undefined) {
+//     if (!data) return
+//     const imgOverlay = map?.getOverlays().find(m => m instanceof BMapGL.GroundOverlay) as BMapGL.GroundOverlay | undefined
+//     if (imgOverlay) map.removeOverlay(imgOverlay)
+
+//     const { lngs, lats, url } = data
+//     const bounds = getBounds(lngs, lats)
+
+//     const bgOverlay = new BMapGL.GroundOverlay(bounds, {
+//         // @ts-ignore 参数变了文档又不更新
+//         type: 'image',
+//         url,
+//     })
+//     map.addOverlay(bgOverlay)
+//     // @ts-ignore
+//     const dom = bgOverlay.ca as HTMLElement
+//     if (dom) dom.style.zIndex = LayerZIndex.RAIN + ''
+
+//     const contextMenuCleaner = contextMenuRender?.(bgOverlay)
+//     return () => {
+//         contextMenuCleaner?.()
+//         map.removeOverlay(bgOverlay)
+//     }
+// }
 
 const minuteRainConfig = {
     zeroBgColor: '#7d7d7d',
