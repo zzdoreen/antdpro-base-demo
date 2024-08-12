@@ -29,8 +29,8 @@ export function useDetailRender({ map, }: { map: BMapGL.Map | undefined }) {
                 <HeatMapLegend />
             </div>,
             {
-                anchor: BMAP_ANCHOR_BOTTOM_LEFT,
-                offset: new BMapGL.Size(left + 136, bottom + 60),
+                anchor: BMAP_ANCHOR_TOP_LEFT,
+                offset: new BMapGL.Size(left + 80, bottom + 60),
                 className: LegendClassName
             }
         );
