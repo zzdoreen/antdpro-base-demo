@@ -68,6 +68,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "flv.js": "^1.6.2",
     "hls.js": "^1.4.12",
+    "html2canvas": "^1.4.1",
     "lodash": "^4.17.0",
     "moment": "^2.29.0",
     "omit.js": "^2.0.2",
@@ -100,6 +101,7 @@
     "@electron-forge/maker-zip": "^6.2.1",
     "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@playwright/test": "^1.17.0",
+    "@types/bmapgl": "0.0.7",
     "@types/classnames": "^2.3.1",
     "@types/color-string": "^1.5.2",
     "@types/dplayer": "^1.25.5",
@@ -136,7 +138,7 @@
     "protobufjs-loader": "^2.0.2",
     "stylelint": "^13.0.0",
     "swagger-ui-dist": "^4.12.0",
-    "typescript": "^4.5.0",
+    "typescript": "^4.2.2",
     "umi-serve": "^1.9.10"
   },
   "engines": {

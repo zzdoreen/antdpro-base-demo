@@ -1,4 +1,5 @@
 import { Colors } from "@/config/dictions"
+import type { mapState } from "@/models/bmap";
 import { LayerZIndex } from "@/models/bmap"
 import { Button, Form, Input, InputNumber, Row, Tooltip, Typography } from "antd"
 import classNames from "classnames"
@@ -6,8 +7,9 @@ import ReactDOM from "react-dom"
 import { useModel } from "umi"
 
 export default function MapToolsComponent({ map }: { map: BMapGL.Map }) {
-    const { isFull, toggleFull, centerAndZoomMap, setMapState, roads } = useModel('bmap', ({ isFull, toggleFull, centerAndZoomMap, setMapState, mapState }) => ({ isFull, toggleFull, centerAndZoomMap, setMapState, roads: mapState.roads }))
+    const { isFull, toggleFull, centerAndZoomMap, setMapState } = useModel('bmap', ({ isFull, toggleFull, centerAndZoomMap, setMapState }) => ({ isFull, toggleFull, centerAndZoomMap, setMapState }))
 
+    // @ts-ignore
     return <div className="tools"
         // 事件委托/代理
         onClick={(e) => {
@@ -19,35 +21,33 @@ export default function MapToolsComponent({ map }: { map: BMapGL.Map }) {
             else if (target.classList.contains('distance')) distanceToolFunc.open(map!)
         }}
     >
-        {/* @ts-ignore */}
-        <Tooltip placement="left" title={isFull ? "退出全屏" : "全屏"} color={Colors.primaryColor} getPopupContainer={v => document.getElementsByClassName('full-screen')[0]} >
+        <Tooltip placement="left" title={isFull ? "退出全屏" : "全屏"} color={Colors.primaryColor} getPopupContainer={() => document.getElementsByClassName('full-screen')[0]} >
             <div onClick={toggleFull} className={classNames("full-screen", isFull && 'exit-full')} >{isFull ? '退出全屏' : '全屏'}</div>
         </Tooltip>
-        {/* @ts-ignore */}
-        <Tooltip placement="left" title="添加标记" color={Colors.primaryColor} getPopupContainer={v => document.getElementsByClassName('marker')[0]}>
+        <Tooltip placement="left" title="截图" color={Colors.primaryColor} getPopupContainer={() => document.getElementsByClassName('screenshot')[0]}>
+            <div className="screenshot reset" onClick={() => setMapState(({ screenshot }: mapState) => ({ screenshot: !screenshot }))} >截图</div>
+        </Tooltip>
+        <Tooltip placement="left" title="添加标记" color={Colors.primaryColor} getPopupContainer={() => document.getElementsByClassName('marker')[0]}>
             <div className="marker reset" >添加标记</div>
         </Tooltip>
-        {/* @ts-ignore */}
-        <Tooltip placement="left" title="测距" color={Colors.primaryColor} getPopupContainer={v => document.getElementsByClassName('distance')[0]}>
+        <Tooltip placement="left" title="测距" color={Colors.primaryColor} getPopupContainer={() => document.getElementsByClassName('distance')[0]}>
             <div className="distance reset" >测距</div>
         </Tooltip>
-        {/* @ts-ignore */}
         {/* <Tooltip placement="left" title="图层选择" color={Colors.primaryColor} getPopupContainer={v => document.getElementsByClassName('layer')[0]}>
             {roads && <div onClick={() => setLayer(v => ({ ...v, show: true }))} className="layer reset" >图层选择</div>}
         </Tooltip> */}
-        {/* @ts-ignore */}
-        <Tooltip placement="left" title="人口热力" color={Colors.primaryColor} getPopupContainer={v => document.getElementsByClassName('heatmap')[0]} >
-            <div onClick={() => setMapState(({ heatmap }) => ({ heatmap: !heatmap }))} className="heatmap reset" >人口热力</div>
+        <Tooltip placement="left" title="人口热力" color={Colors.primaryColor} getPopupContainer={() => document.getElementsByClassName('heatmap')[0]} >
+            <div onClick={() => setMapState(({ heatmap }: mapState) => ({ heatmap: !heatmap }))} className="heatmap reset" >人口热力</div>
         </Tooltip>
-        {/* @ts-ignore */}
-        <Tooltip placement="left" title="切换地图类型" color={Colors.primaryColor} overlayInnerStyle={{ marginRight: -1 }} getPopupContainer={v => document.getElementsByClassName('maptype')[0]}>{/* arrow诡异的1px空隙 */}
+        <Tooltip placement="left" title="切换地图类型" color={Colors.primaryColor} overlayInnerStyle={{ marginRight: -1 }}
+            getPopupContainer={() => document.getElementsByClassName('maptype')[0]}>{/* arrow诡异的1px空隙 */}
             <div onClick={() => {
                 const mapType = map?.getMapType() === 'B_NORMAL_MAP' as unknown as BMapGL.MapType ? BMAP_SATELLITE_MAP : BMAP_NORMAL_MAP
                 map.setMapType(mapType)
             }} className="maptype" >类型</div>
         </Tooltip>
-        {/* @ts-ignore */}
-        <Tooltip placement="left" title="返回默认地图" color={Colors.primaryColor} overlayInnerStyle={{ marginRight: -1 }} getPopupContainer={v => document.getElementsByClassName('reset')[0]}>{/* arrow诡异的1px空隙 */}
+        <Tooltip placement="left" title="返回默认地图" color={Colors.primaryColor} overlayInnerStyle={{ marginRight: -1 }}
+            getPopupContainer={() => document.getElementsByClassName('reset')[0]}>{/* arrow诡异的1px空隙 */}
             <div onClick={() => {
                 // if (useMapOptions.staticMode) {
                 //     setStaticMode(true)

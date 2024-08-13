@@ -54,7 +54,7 @@ export default function Turing() {
         setInputValue('')
     }
     return <>
-        <div className="container" >
+        <div className="turning-container" >
             <header className="msg-header">{loading ? '正在瞎编中...' : 'Turing'} </header>
             <div className="content" ref={containerRef}>
                 {

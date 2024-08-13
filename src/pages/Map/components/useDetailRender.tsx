@@ -4,6 +4,7 @@ import { heatMapDotGenerator } from "./hooks"
 import { DOMControl } from "./utils"
 import cs from 'color-string';
 import type { DisasterInfoEntity, FloodInfo, IntensityInfoEntity } from "@/services/entities";
+import moment from "moment";
 
 function calcRGB(a: string, b?: string, opacity?: number): string {
     const background = 'rgb(245,243,240)';
@@ -18,8 +19,98 @@ function calcRGB(a: string, b?: string, opacity?: number): string {
     const A = 1;
     return cs.to.rgb([R, G, B, A]);
 }
+interface EarthquakeInfoEntity {
+    eventId: number,
+    updates: number,
+    epicenter: string,
+    startAt: number,
+    updateAt: number,
+    longitude: number,
+    latitude: number,
+    magnitude: number,
+    depth: number,
+    distance: number,
+    countdown: number,
+    intensity: number,
+    recTime: number,
+    stations: number,
+    insideNet: number,
+    notice: number
+}
 
-export const intensityMapRender = (map: BMapGL.Map, intensity: IntensityInfoEntity) => {
+export const earthquakeMapRender = (map: BMapGL.Map) => {
+    const now = moment().unix()
+    const detail: EarthquakeInfoEntity = {
+        "eventId": 51130,
+        "updates": 1,
+        "epicenter": "四川汶川多报（测试）",
+        "startAt": now - 4000,
+        "updateAt": now + 2000,
+        "longitude": 103.4,
+        "latitude": 31,
+        "magnitude": 5.2,
+        "depth": 15,
+        "distance": 82,
+        "countdown": 18,
+        "intensity": 3.3225582,
+        "recTime": 1669791248259,
+        "stations": 3,
+        "insideNet": 1,
+        notice: 2,
+    }
+    const { distance, longitude, latitude, } = detail
+    const interval = 50
+    let radius = 1
+    const centerPoint = new BMapGL.Point(longitude, latitude)
+    // 震中
+    const size = 18
+    const centerLabel = new BMapGL.Label(``, {
+        offset: new BMapGL.Size(-size / 2, -size / 2),
+        position: centerPoint,
+    })
+    centerLabel.setStyle({
+        border: 'none',
+        padding: 0,
+        backgroundColor: 'red',
+        display: 'inline-block',
+        height: size + 'px',
+        width: size + 'px',
+        borderRadius: '50%',
+    })
+
+    // 预警圈
+    const circle = new BMapGL.Circle(centerPoint, radius, {
+        fillColor: '#00f',
+        fillOpacity: .1,
+        strokeColor: '#f00',
+        strokeOpacity: .9,
+        strokeWeight: 2,
+    })
+    const timer_circle = setInterval(() => {
+        radius += 3.5 * interval / 1000
+        if (radius >= distance) {
+            radius = distance
+            clearInterval(timer_circle)
+        }
+        circle.setRadius(radius * 1000)
+    }, interval);
+
+    const centerArray = [circle, centerLabel]
+    centerArray.forEach(o => map.addOverlay(o))
+
+    return {
+        // TODO
+        points: [new BMapGL.Point(102.56, 31.18), new BMapGL.Point(104.26, 30.99),
+        new BMapGL.Point(103.4, 30.24), new BMapGL.Point(103.39, 31.73)],
+        cleaner: () => {
+            centerArray.forEach(v => map.removeOverlay(v))
+            clearInterval(timer_circle)
+        }
+    }
+
+}
+
+export const intensityMapRender = (map: BMapGL.Map, intensity: IntensityInfoEntity): { points: BMapGL.Point[], cleaner: () => void } => {
     const { latitude, longitude, irregulars = [], thresholdIntensity = 0, thermodyNamic = '[]' } = intensity
     const effectiveIrregulars = irregulars.filter(({ intensity }) => intensity >= thresholdIntensity)
     const overlays: BMapGL.Overlay[] = []
@@ -170,11 +261,10 @@ export const flashfloodMapRender = (map: BMapGL.Map, detail: DisasterInfoEntity<
         enableMassClear: false,
     });
     overlays.push(epicenterMarker);
+
     // 设置中心点像素大小固定
-    const listener = () => {
-        epicenterMarker.setRadius(Math.pow(2, 18 - map.getZoom()) * 5)
-    }
-    listener()
+    const listener = () => setTimeout(() => epicenterMarker.setRadius(Math.pow(2, 18 - map?.getZoom()) * 5), 500);
+
     map.addEventListener('zoomend', listener)
     // 图例
     const legend = new DOMControl(<div className="static-legend flashflood" style={{ width: 128 }}>

@@ -79,6 +79,7 @@ export enum EventType { // 灾害类型
     WATERACCUM,
     COLLAPSE, //崩塌
     RIVERFLOOD = 9, //河道洪水
+    EARTHQUAKE
 }
 
 

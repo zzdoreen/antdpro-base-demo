@@ -6,9 +6,11 @@ import { useModel } from "umi";
 import { info } from './configuration'
 import { DOMControl } from "./utils";
 import { HeatMapLegend, LegendClassName } from "./legend";
+import type { mapState } from "@/models/bmap";
+import html2canvas from 'html2canvas'
 
 export function useDetailRender({ map, }: { map: BMapGL.Map | undefined }) {
-    const { mapState, marginsRef, setMapState } = useModel('bmap', ({ mapState, marginsRef, setMapState }) => ({ setMapState, mapState, marginsRef }))
+    const { mapState, marginsRef, centerAndZoomMap, setMapState } = useModel('bmap', ({ centerAndZoomMap, mapState, marginsRef, setMapState }) => ({ setMapState, centerAndZoomMap, mapState, marginsRef }))
 
     // 热力图
     useDebounceEffect(() => {
@@ -18,13 +20,14 @@ export function useDetailRender({ map, }: { map: BMapGL.Map | undefined }) {
         const heatmap = JSON.parse(info.heatmap || "[]") as Record<'lng' | 'lat' | 'count', number>[]
         if (heatmap.length === 0) {
             message.info('暂无人口热力数据！')
-            setMapState(({ heatmap }) => ({ heatmap: !heatmap }));
+            setMapState(({ heatmap }: mapState) => ({ heatmap: !heatmap }));
             return
         }
 
         const overlay = heatMapGenerator(view, heatmap)
         const { bottom, left } = marginsRef.current
         const legend = new DOMControl(
+            // @ts-ignore
             <div className="static-legend" style={{ width: 128 }}>
                 <HeatMapLegend />
             </div>,
@@ -40,6 +43,80 @@ export function useDetailRender({ map, }: { map: BMapGL.Map | undefined }) {
             map.removeControl(legend)
         }
     }, [map, mapState.heatmap, info.heatmap], { wait: 500 });
+
+    // 截图
+    useDebounceEffect(() => {
+        if (!map || !mapState?.screenshot) return
+        // @ts-ignore
+        const prismArray: BMapGL.Prism[] = [];
+        const bd = new BMapGL.Boundary();
+        let mapmask: BMapGL.MapMask;
+        // @ts-ignore
+        bd.get('四川省', (rs: { boundaries: any[] }) => {
+            const count = rs.boundaries.length; //行政区域的点有多少个
+            const pointArray: BMapGL.Point[] = [];
+            for (let i = 0; i < count; i++) {
+                const path = [];
+                const str = rs.boundaries[i].replace(' ', '');
+                const points = str.split(';');
+                for (let j = 0; j < points.length; j++) {
+                    const [lng, lat] = points[j].split(',');
+                    const point = new BMapGL.Point(lng, lat)
+                    path.push(point);
+
+                }
+                pointArray.push(...path)
+                // @ts-ignore
+                const prism = new BMapGL.Prism(path, 50000, {
+                    topFillColor: '#5679ea',
+                    topFillOpacity: 0.5,
+                    sideFillColor: '#5679ea',
+                    sideFillOpacity: 0.9
+                })
+                prismArray.push(prism)
+            }
+            mapmask = new BMapGL.MapMask(pointArray, {
+                isBuildingMask: true,
+                isPoiMask: true,
+                isMapMask: true,
+                showRegion: 'inside',
+                topFillColor: '#5679ea',
+                topFillOpacity: 0.5,
+                sideFillColor: '#5679ea',
+                sideFillOpacity: 0.9
+            });
+
+            map.setViewport(pointArray)
+            map.setTilt(50);
+            map.setMapType(BMAP_SATELLITE_MAP)
+            prismArray.map(v => map.addOverlay(v))
+            map.addOverlay(mapmask);
+
+            setTimeout(() => {
+                const dom = document.getElementsByClassName('wrapper')[0] as HTMLElement
+                html2canvas(dom, { useCORS: true, allowTaint: true })
+                    .then(canvas => {
+                        const image = canvas.toDataURL('image/png', 0.9)
+                        const link = document.createElement('a')
+                        link.href = image
+                        link.download = '地图.png'
+                        link.click()
+                    })
+                    .catch(() => message.error('操作失败'))
+                    .finally(() => {
+                        setTimeout(() => {
+                            map.setTilt(0);
+                            setMapState(({ screenshot }) => ({ screenshot: !screenshot }))
+                            centerAndZoomMap()
+                            map.setMapType(BMAP_NORMAL_MAP)
+                            prismArray.map(v => map.removeOverlay(v))
+                            map.removeOverlay(mapmask)
+                        }, 2e3);
+                    })
+
+            }, 3e3);
+        });
+    }, [map, mapState?.screenshot], { wait: 500 })
 }
 
 
@@ -73,7 +150,6 @@ export const heatMapGenerator = (view: MapVGL.View, data: Record<'lng' | 'lat' |
             0.95: 'yellow',
             1: 'rgb(255,0,0)',
         },
-
     });
 
     view.addLayer(heatmapOverlay);

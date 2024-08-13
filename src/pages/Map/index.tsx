@@ -4,38 +4,34 @@ import { useEffect, useRef, useState } from 'react'
 import { Map } from 'react-bmapgl'
 import { styleJson } from './components/style'
 import { useModel } from 'umi';
-import './index.less'
 import MapToolsComponent from './components/MapTools';
 import { useDetailRender } from './components/hooks';
 import MapBoundaryComponent from './components/MapBoundary';
 import DisasterTools from './components/DisasterTools';
 import { useMinuteRainManager } from './components/HoursRainfall';
+import './index.less'
 
 type MapCenterFunc = (margins?: number[]) => void
 
 export default function MapConponent() {
     const [map, setMap] = useState<BMapGL.Map>()
-    const { initialState } = useModel('@@initialState')
+    const boundarys = useModel('@@initialState', ({ initialState }) => initialState?.serveArea?.polygons)
     const onceRef = useRef<MapCenterFunc>()
-
-    const { centerAndZoomMap } = useModel('bmap', ({ centerAndZoomMap }) => ({ centerAndZoomMap }))
+    const centerAndZoomMap = useModel('bmap', ({ centerAndZoomMap: centerAndZoomMapFn }) => centerAndZoomMapFn)
+    const [current, setCurrent] = useState('')
 
     useDetailRender({ map })
     useMinuteRainManager({ map })
 
+    // 边界加载
     useEffect(() => {
-        if (!map) return
-        const boundarys = initialState?.serveArea?.polygons
+        if (!map || !boundarys) return
         const strokeColor = '#338aec'
         const polylines: BMapGL.Polyline[] = []
         let pts: BMapGL.Point[] = []
 
-        boundarys.forEach((boundary: number[][], i: any) => {
-            const points: BMapGL.Point[] = boundary.map(([lng, lat]: number[]) => {
-                // return new BMap.Point(lng, lat)
-                // ADD 边界线经纬度转换
-                return new BMapGL.Point(lng, lat)
-            })
+        boundarys!.forEach((boundary: number[][]) => {
+            const points: BMapGL.Point[] = boundary.map(([lng, lat]: number[]) => new BMapGL.Point(lng, lat))
             const polyline = new BMapGL.Polyline(points, {
                 // fillOpacity: 'transparent',
                 // fillColor: 'transparent',
@@ -44,29 +40,9 @@ export default function MapConponent() {
             })
             polylines.push(polyline)
             pts = pts.concat(points)
-            // if (i === 5) prev5Index = pts.length
         })
         if (!onceRef.current) {
-            onceRef.current = (margins) => {
-                // if (isAllNation) {
-                //     // 非全屏下的全国边界定位取前五个
-                //     let points = pts
-                //     const [_, right = 0, __, left = 0] = margins || []
-                //     if (window.innerHeight < 1080 || alwaysFullScreen)
-                //         points = points.slice(0, prev5Index)
-                //     margins = window.innerHeight < 1080 ? [65, right, 78, left] : [65, right, 220, left]
-                //     map.setViewport(points, {
-                //         // enableAnimation: false,
-                //         delay: 0,
-                //         margins
-                //     })
-                // } else
-                map.setViewport(pts, {
-                    // enableAnimation: false,
-                    delay: 20,
-                    margins
-                })
-            }
+            onceRef.current = (margins) => map.setViewport(pts, { delay: 20, margins })
             centerAndZoomMap(onceRef)
         }
 
@@ -85,16 +61,53 @@ export default function MapConponent() {
         return () => {
             polygons.map(polygon => map.removeOverlay(polygon))
         }
+    }, [map, boundarys, centerAndZoomMap])
 
-    }, [map, initialState?.serveArea?.polygons])
+    // 右键菜单
+    useEffect(() => {
+        if (!map) return
+        const menu = new BMapGL.ContextMenu()
+        const menuItem = new BMapGL.MenuItem(
+            '查看',
+            (v: BMapGL.Point) => {
+                const { lng, lat } = v
+                const infoWindow = new BMapGL.InfoWindow(`${lng},${lat}`, {
+                    width: 300,
+                    height: 50,
+                    title: 'title',
+                })
+                map.openInfoWindow(infoWindow, v)
+            })
+        menu.addItem(menuItem)
+        map.addContextMenu(menu)
+
+
+        const geolocation = new BMapGL.Geolocation()
+        geolocation.getCurrentPosition(result => {
+            console.log(result) // null
+            setCurrent(result?.address?.province + result?.address?.city + result?.address?.country)
+            const marker = new BMapGL.Marker(result?.point)
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE)
+            map.addOverlay(marker)
+            return () => {
+                map?.removeOverlay(marker)
+            }
+        })
+
+    }, [map])
+
 
     return <div className='wrapper'>
         <Map ref={(ref: { map: SetStateAction<BMapGL.Map | undefined> }) => setMap(ref?.map)}
-            style={{ height: 850 }} enableScrollWheelZoom={true}
-            mapStyleV2={{ styleJson }} >
+            style={{ height: 850 }}
+            enableScrollWheelZoom={true}
+            defaultOptions={{ preserveDrawingBuffer: true }} // 否则截图不生效
+            mapStyleV2={{ styleJson }}
+        >
             <MapBoundaryComponent map={map!} />
             <MapToolsComponent map={map!} />
             <DisasterTools map={map!} />
         </Map>
+        {current}
     </div>
 }

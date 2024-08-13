@@ -44,15 +44,17 @@ type infoWindow = {  //地图信息浮窗
     y: number
 }
 
-type mapState = {
+export type mapState = {
     heatmap: boolean //tools的tooltip状态
     roads: boolean //tool中道路的tooltip状态（公路、铁路）
     lineTo: boolean // 线路
+    screenshot: boolean // 截图
 }
 const initialMapState: mapState = {
     heatmap: false,
     roads: true,
-    lineTo: false
+    lineTo: false,
+    screenshot: false,
 }
 /**overlay的层级优先级 */
 export enum LayerZIndex {
