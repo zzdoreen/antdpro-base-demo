@@ -57,6 +57,12 @@
         component: './TMap'
       },
       {
+        name: 'googlemap',
+        icon: 'fire',
+        path: '/googlemap',
+        component: './GoogleMap'
+      },
+      {
         name: 'echarts',
         icon: 'code',
         path: '/echarts',

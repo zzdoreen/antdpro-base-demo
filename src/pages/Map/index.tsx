@@ -87,7 +87,7 @@ export default function MapConponent() {
             console.log(result) // null
             setCurrent(result?.address?.province + result?.address?.city + result?.address?.country)
             const marker = new BMapGL.Marker(result?.point)
-            marker.setAnimation(BMAP_ANIMATION_BOUNCE)
+            marker.setAnimation(50)
             map.addOverlay(marker)
             return () => {
                 map?.removeOverlay(marker)
